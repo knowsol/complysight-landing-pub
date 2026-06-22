@@ -17,7 +17,7 @@ section > .contents-wrap {
 /**************************Start:section1 ***************************/
 .section1 {
     /* 책상(데스크) 앞단이 항상 섹션 하단에 고정되도록 position: bottom */
-    background: url(../assets/images/section1-bg.png) no-repeat center bottom;
+    background: url(../assets/images/section1-bg.webp) no-repeat center bottom;
     background-size: cover;
     width: 100%;
     /* 히어로 전용 단위: --u와 달리 1px 클램프가 없어 1920 미만에서도 화면폭에
@@ -131,7 +131,7 @@ section > .contents-wrap {
 
 /**************************Start:section3 ***************************/
 .section3 {
-    background: url(../assets/images/section3-bg-1.png);
+    background: url(../assets/images/section3-bg-1.webp);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -643,7 +643,7 @@ section > .contents-wrap {
         overflow: hidden;
         background:
             linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.08)),
-            url(../assets/images/section1-bg.png) 72% bottom / cover no-repeat;
+            url(../assets/images/section1-bg.webp) 72% bottom / cover no-repeat;
     }
     .section1 > .contents-wrap {
         flex-direction: column;
