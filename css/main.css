@@ -1,0 +1,934 @@
+﻿@charset "utf-8";
+:root {
+    /* Color */
+    --color-gray-600: #999999;
+    /*//Color*/
+
+    /* Font */
+    --font-primary: calc(18 * var(--u));
+    --font-large: calc(28 * var(--u));
+    /* //Font */
+}
+/*------------------------------ 섹션별------------------------------*/
+section > .contents-wrap {
+    max-width: 80vw;
+}
+
+/**************************Start:section1 ***************************/
+.section1 {
+    /* 책상(데스크) 앞단이 항상 섹션 하단에 고정되도록 position: bottom */
+    background: url(../assets/images/section1-bg.png) no-repeat center bottom;
+    background-size: cover;
+    width: 100%;
+}
+.section1 > .contents-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    min-height: 100vh;
+    /* 배경은 섹션 전체 폭을 채우고, 콘텐츠는 1920 시안과 같은 좌측 정렬(좌 200)로
+       화면 폭에 비례해 배치 → 넓은 화면에서도 글씨는 좌측, 노트북은 우측으로 퍼짐 */
+    max-width: 85vw;
+    margin: 0 auto 0 calc(200 * var(--u));
+}
+
+.visual-contents {
+    flex: 1;
+    align-self: flex-start;
+    padding-top: calc(260 * var(--u));
+}
+.visual-subtit {
+    font-size: calc(24 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(-0.24 * var(--u));
+    color: var(--color-primary-500);
+}
+.visual-tit {
+    margin-top: calc(16 * var(--u));
+    font-size: calc(52 * var(--u));
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: calc(-0.52 * var(--u));
+}
+.visual-middle {
+    margin-top: calc(32 * var(--u));
+    font-size: calc(20 * var(--u));
+    line-height: 1.6;
+    letter-spacing: calc(-0.4 * var(--u));
+}
+.visual-name {
+    font-weight: 600;
+}
+.visual-bottom {
+    margin-top: calc(60 * var(--u));
+    display: flex;
+    flex-direction: column;
+    gap: calc(16 * var(--u));
+}
+.visual-point {
+    position: relative;
+    font-size: calc(22 * var(--u));
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: calc(-0.22 * var(--u));
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.visual-point::before {
+    position: relative;
+    content: "";
+    background: url(../assets/icons/chk-circle.svg) no-repeat;
+    background-size: cover;
+    width: calc(34 * var(--u));
+    height: calc(34 * var(--u));
+    display: inline-block;
+    margin-right: calc(16 * var(--u));
+}
+.visual-image {
+    flex: none;
+    /* 968(이미지) + 40(좌측 패딩) = 1008, 화면 폭에 비례해 확대 */
+    width: calc(1008 * var(--u));
+    padding-left: calc(40 * var(--u));
+    /* 노트북을 하단으로 내려 밑면이 책상 표면에 닿도록 정렬 */
+    align-self: flex-end;
+    margin-bottom: 6vh;
+}
+.visual-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+/************************** //End:section1 ***************************/
+
+/**************************Start:section2 ***************************/
+.section2 {
+    background-color: #e7ecf0;
+}
+.section-head {
+    display: flex;
+    flex-direction: column;
+    gap: calc(24 * var(--u));
+}
+.section-tit {
+    font-size: var(--font-2xlarge);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: calc(-0.48 * var(--u));
+    color: var(--color-black);
+}
+
+.section-subtit {
+    font-size: var(--font-primary);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/************************** //End:section2 ***************************/
+
+/**************************Start:section3 ***************************/
+.section3 {
+    background: url(../assets/images/section3-bg-1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.section-tit.white-txt {
+    color: var(--color-white);
+}
+.rev-contents {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: calc(64 * var(--u));
+    margin-top: calc(44 * var(--u));
+}
+.rev-label {
+    font-size: var(--font-primary);
+    font-weight: 600;
+    font-family: "Pretendard";
+    line-height: 1.3;
+    color: var(--color-white);
+}
+.rev-left {
+    width: calc(787 * var(--u));
+}
+.change-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(16 * var(--u));
+    margin-top: calc(20 * var(--u));
+    text-align: center;
+}
+.change-item {
+    padding: calc(20 * var(--u)) 0;
+}
+.change-pill {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--color-white);
+    font-size: calc(15 * var(--u));
+    font-weight: 600;
+    font-family: "Pretendard";
+    border-radius: calc(100 * var(--u));
+    padding: calc(9 * var(--u)) calc(24 * var(--u));
+}
+.change-from {
+    font-size: calc(16 * var(--u));
+    line-height: 1.2;
+    letter-spacing: calc(-0.32 * var(--u));
+    font-weight: 300;
+    font-family: "Pretendard";
+    color: var(--color-white);
+    margin-top: calc(16 * var(--u));
+    margin-bottom: calc(3 * var(--u));
+}
+.change-to {
+    font-size: calc(26 * var(--u));
+    font-weight: 500;
+    font-family: "Pretendard";
+    line-height: 1.2;
+    letter-spacing: calc(-0.32 * var(--u));
+}
+/* 지원 대상 자원 및 제품 */
+.product-label {
+    margin-top: calc(56 * var(--u));
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: calc(10 * var(--u));
+    margin-top: calc(16 * var(--u));
+}
+.product-card {
+    background: rgba(242, 246, 249, 0.08);
+    box-shadow: 0 0 0 0.25px rgba(32, 32, 32, 0.5);
+    border-radius: calc(8 * var(--u));
+    padding: calc(20 * var(--u));
+    display: flex;
+    flex-direction: column;
+    gap: calc(12 * var(--u));
+}
+.product-tit {
+    font-size: calc(15 * var(--u));
+    font-weight: 600;
+    color: var(--color-white);
+    line-height: 1;
+}
+.product-sub {
+    font-size: var(--font-xsmall);
+    font-weight: 400;
+    color: var(--color-gray-500);
+    line-height: 1.3;
+}
+
+.rev-right {
+    width: calc(710 * var(--u));
+    flex-shrink: 0;
+}
+
+/************************** //End:section3***************************/
+
+/**************************Start:section4 ***************************/
+.before-after {
+    margin-top: calc(44 * var(--u));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(44 * var(--u));
+}
+.before-after li {
+    width: 100%;
+}
+.maintit {
+    font-size: calc(34 * var(--u));
+    font-weight: 800;
+    color: var(--color-gray-600);
+}
+.subtit {
+    font-size: var(--font-large);
+    font-weight: 600;
+    color: var(--color-gray-600);
+    letter-spacing: calc(-0.56 * var(--u));
+}
+.maintit.blue-txt,
+.subtit.blue-txt {
+    color: var(--color-primary-500);
+}
+.smallboxs {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: calc(10 * var(--u));
+    margin-top: calc(20 * var(--u));
+}
+.smallboxs.type1 {
+    grid-template-columns: repeat(5, 1fr);
+}
+.smallbox {
+    padding: calc(20 * var(--u)) calc(30 * var(--u));
+    border-radius: calc(6 * var(--u));
+    border: 1px solid var(--color-gray-500);
+    background-color: #f1f1f1;
+    font-size: var(--font-primary);
+    font-weight: 700;
+    color: var(--color-gray-700);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: calc(10 * var(--u));
+    font-family: "Pretendard";
+}
+
+.smallbox.bluebg {
+    background-color: var(--color-primary-500);
+    color: var(--color-white);
+}
+.smallbox-subtit {
+    font-family: "Pretendard";
+    font-size: var(--font-xsmall);
+    font-weight: 400;
+    color: var(--color-white);
+}
+/************************** //End:section4***************************/
+
+/**************************Start:section5 ***************************/
+.section5 {
+    background-color: #e7ecf0;
+}
+.ipo-flow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: calc(32 * var(--u));
+}
+.ipo-card {
+    position: relative;
+    padding: calc(38 * var(--u)) calc(46 * var(--u)) calc(38 * var(--u)) calc(40 * var(--u));
+    color: #fff;
+    min-height: calc(330 * var(--u));
+    clip-path: polygon(0 0, calc(100% - 34 * var(--u)) 0, 100% 50%, calc(100% - 34 * var(--u)) 100%, 0 100%, calc(34 * var(--u)) 50%);
+}
+.ipo-card:first-child {
+    clip-path: polygon(0 0, calc(100% - 34 * var(--u)) 0, 100% 50%, calc(100% - 34 * var(--u)) 100%, 0 100%);
+    border-radius: calc(14 * var(--u)) 0 0 calc(14 * var(--u));
+}
+
+.ipo-card:not(:first-child) {
+    padding-left: calc(70 * var(--u));
+}
+.ipo-input {
+    background: #6ba0d6;
+    margin-right: calc(-18 * var(--u));
+    z-index: 1;
+}
+.ipo-process {
+    background: #3d7fc4;
+    margin-right: calc(-18 * var(--u));
+    z-index: 2;
+}
+.ipo-output {
+    background: var(--color-primary-500);
+    z-index: 3;
+    border-radius: 0 calc(14 * var(--u)) calc(14 * var(--u)) 0;
+    /* 마지막 카드: 왼쪽 노치는 유지하되 오른쪽은 화살표 없이 일직선으로 마감 */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, calc(34 * var(--u)) 50%);
+}
+.ipo-head {
+    color: var(--color-white);
+    font-size: calc(16 * var(--u));
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: calc(13 * var(--u));
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--u));
+}
+.ipo-pill {
+    display: inline-block;
+    font-size: calc(16 * var(--u));
+    line-height: 1.8;
+    font-weight: 700;
+    padding: calc(8 * var(--u)) calc(16 * var(--u));
+    border-radius: calc(6 * var(--u));
+    /* clip-path: polygon(0 0, calc(100% - 9 * var(--u)) 0, 100% 46%, 100% 54%, calc(100% - 9 * var(--u)) 100%, 0 100%); */
+    letter-spacing: calc(-0.32 * var(--u));
+}
+.ipo-pill.dark {
+    background: #1c2738;
+    color: #fff;
+}
+.ipo-pill.darker {
+    background: #11151c;
+    color: #fff;
+}
+.ipo-pill.green {
+    background: #16a06a;
+    color: #fff;
+}
+.ipo-pill.blue {
+    background: var(--color-primary-500);
+    color: #fff;
+}
+.ipo-card h3 {
+    font-size: calc(28 * var(--u));
+    font-weight: 800;
+    margin-bottom: calc(39 * var(--u));
+}
+.ipo-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(32 * var(--u)) calc(16 * var(--u));
+}
+.ipo-list li {
+    padding-left: calc(12 * var(--u));
+    border-left: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.ipo-list b {
+    display: block;
+    font-size: var(--font-primary);
+    font-weight: 600;
+    font-family: "Pretendard";
+    margin-bottom: calc(8 * var(--u));
+}
+.ipo-list span {
+    font-size: var(--font-small);
+    font-weight: 300;
+    font-family: "Pretendard";
+    color: var(--color-white);
+}
+/************************** //End:section5***************************/
+
+/**************************Start:section6 ***************************/
+
+.product-cols {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: calc(48 * var(--u));
+    align-items: start;
+    margin-top: calc(32 * var(--u));
+}
+.product-tag {
+    font-size: calc(22 * var(--u));
+    font-weight: 600;
+    margin-bottom: calc(36 * var(--u));
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--u));
+    color: #3a4250;
+}
+.product-shot {
+    margin-bottom: calc(30 * var(--u));
+    overflow: hidden;
+    height: calc(446 * var(--u));
+}
+.product-shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left top;
+}
+.product-col h3 {
+    font-size: calc(26 * var(--u));
+    font-weight: 700;
+    line-height: 1.8;
+    margin-bottom: calc(17 * var(--u));
+}
+.check-list li {
+    position: relative;
+    padding-left: calc(28 * var(--u));
+    font-size: calc(16 * var(--u));
+    font-weight: 300;
+    font-family: "Pretendard";
+    color: var(--color-black);
+    display: flex;
+    align-items: center;
+    height: calc(34 * var(--u));
+}
+.check-list li::before {
+    content: "";
+    position: absolute;
+    left: calc(2 * var(--u));
+    top: calc(12 * var(--u));
+    width: calc(16 * var(--u));
+    height: calc(12 * var(--u));
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.green-check li::before {
+    background-image: url("../assets/icons/chk-1.svg");
+}
+.blue-check li::before {
+    background-image: url("../assets/icons/chk-2.svg");
+}
+.sentinel-txt {
+    color: #1ea965;
+}
+.manager-txt {
+    color: var(--color-primary-500);
+}
+/************************** //End:section6***************************/
+
+/**************************Start:section7***************************/
+.section7 {
+    background-color: #003874;
+}
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(20 * var(--u));
+    margin-top: calc(32 * var(--u));
+}
+.benefit-card {
+    display: flex;
+    gap: calc(18 * var(--u));
+    align-items: flex-start;
+    background: var(--color-white);
+    border-radius: calc(8 * var(--u));
+    padding: calc(40 * var(--u)) calc(50 * var(--u));
+}
+.benefit-card.highlight {
+    background: var(--color-primary-500);
+}
+.benefit-ico {
+    flex: none;
+    width: calc(52 * var(--u));
+    height: calc(52 * var(--u));
+}
+.benefit-ico img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.benefit-card h3 {
+    font-size: calc(19 * var(--u));
+    font-weight: 800;
+    margin-bottom: calc(8 * var(--u));
+    color: var(--color-primary-500);
+}
+.benefit-card p {
+    font-size: calc(17 * var(--u));
+    font-weight: 300;
+    color: var(--color-black);
+    line-height: 1.55;
+}
+.benefit-card.highlight h3 {
+    color: var(--color-white);
+}
+.benefit-card.highlight p {
+    color: rgba(255, 255, 255, 0.88);
+}
+
+/************************** //End:section7***************************/
+
+/**************************Start:section8***************************/
+
+.road-label {
+    font-size: calc(24 * var(--u));
+    line-height: 1.3;
+    font-weight: 700;
+    margin-top: calc(72 * var(--u));
+    margin-bottom: calc(20 * var(--u));
+}
+.roadmap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto; /* 1행: 단계(쉐브론), 2행: 설명 */
+    gap: 0;
+    margin-bottom: calc(30 * var(--u));
+}
+/* 각 열 = 단계 + 설명 한 세트. subgrid로 부모의 두 행을 공유해 열끼리 정렬 */
+.road-col {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+}
+.road-step {
+    position: relative;
+    padding: calc(26 * var(--u)) calc(30 * var(--u)) calc(26 * var(--u)) calc(46 * var(--u));
+    color: var(--color-black);
+    clip-path: polygon(0 0, calc(100% - 26 * var(--u)) 0, 100% 50%, calc(100% - 26 * var(--u)) 100%, 0 100%, calc(26 * var(--u)) 50%);
+}
+.road-col:first-child .road-step {
+    clip-path: polygon(0 0, calc(100% - 26 * var(--u)) 0, 100% 50%, calc(100% - 26 * var(--u)) 100%, 0 100%);
+    padding-left: calc(30 * var(--u));
+    border-radius: calc(8 * var(--u)) 0 0 calc(8 * var(--u));
+}
+.road-col:last-child .road-step {
+    border-radius: 0 calc(8 * var(--u)) calc(8 * var(--u)) 0;
+}
+/* 단계끼리 살짝 겹쳐 화살표(쉐브론) 사이 간격 축소 (살짝 틈은 남김).
+   열로 묶여 있으므로 margin 대신 너비를 늘려 다음 열 위로 살짝 겹침 */
+.road-col:not(:last-child) .road-step {
+    width: calc(100% + 20 * var(--u));
+}
+.road-step.s1 {
+    z-index: 1;
+    background-color: var(--color-primary-100);
+}
+.road-step.s2 {
+    z-index: 2;
+    background: var(--color-primary-200);
+}
+.road-step.s3 {
+    z-index: 3;
+    background: var(--color-primary-300);
+    color: var(--color-white);
+}
+.road-step.s4 {
+    z-index: 4;
+    background: var(--color-primary-500);
+    color: var(--color-white);
+}
+.road-step .road-stage {
+    font-size: calc(15 * var(--u));
+    font-weight: 400;
+    margin-bottom: calc(9 * var(--u));
+}
+.road-step h3 {
+    font-size: calc(26 * var(--u));
+    font-weight: 600;
+}
+.road-col .check-list {
+    margin-top: calc(30 * var(--u));
+    padding: 0 calc(30 * var(--u));
+}
+.road-col .check-list li {
+    font-size: var(--font-primary);
+    font-weight: 400;
+    color: var(--color-black);
+    margin-bottom: calc(4 * var(--u));
+}
+/************************** //End:section8***************************/
+
+/*------------------------------ //섹션별------------------------------*/
+.cta-box {
+    background-color: #e7ecf0;
+    padding: calc(120 * var(--u)) calc(188 * var(--u));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(40 * var(--u));
+}
+.buttons {
+    gap: calc(16 * var(--u));
+}
+.btn.cta {
+    padding: calc(20 * var(--u)) calc(40 * var(--u));
+    font-size: var(--font-medium);
+    font-weight: 500;
+    font-family: "Pretendard";
+    letter-spacing: calc(-0.04 * var(--u));
+    border-radius: calc(8 * var(--u));
+}
+
+@media screen and (max-width: 1280px), screen and (orientation: portrait) {
+    section {
+        min-height: auto;
+    }
+    section > .contents-wrap {
+        max-width: 100%;
+        padding: 0 50px;
+    }
+    /* section1 */
+    .section1 {
+        overflow: hidden;
+        background:
+            linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.08)),
+            url(../assets/images/section1-bg.png) 72% bottom / cover no-repeat;
+    }
+    .section1 > .contents-wrap {
+        flex-direction: column;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        min-height: 100vh;
+        align-items: flex-start;
+        padding: 0 50px;
+    }
+
+    .section-tit {
+        font-size: calc(24 * var(--u));
+        line-height: 1.3;
+    }
+    .section-subtit {
+        font-size: var(--font-small);
+    }
+    .visual-contents {
+        padding-top: calc(130 * var(--u));
+    }
+    .visual-middle {
+        margin-top: calc(12 * var(--u));
+        font-size: 15px;
+    }
+    .visual-tit {
+        font-size: calc(26 * var(--u));
+        margin-top: 12px;
+    }
+    .visual-subtit {
+        font-size: calc(16 * var(--u));
+    }
+
+    .visual-bottom {
+        margin-top: calc(40 * var(--u));
+        gap: calc(12 * var(--u));
+    }
+
+    .visual-image {
+        width: calc(968 * var(--u));
+        max-width: none;
+        padding-left: 0;
+        align-self: flex-start;
+        margin-top: calc(40 * var(--u));
+        margin-bottom: 9vh;
+        margin-left: 40%;
+    }
+    .visual-point {
+        font-size: calc(18 * var(--u));
+    }
+    .visual-point::before {
+        width: 24px;
+        height: 24px;
+    }
+    /* //section1 */
+    /* section2 */
+    .section2 .section-head {
+        gap: calc(33 * var(--u));
+    }
+    /* //section2 */
+
+    /* section3 */
+    .rev-contents {
+        flex-direction: column;
+    }
+    .rev-left,
+    .rev-right {
+        width: 100%;
+    }
+    /* //section3 */
+    .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(149px, 1fr));
+        gap: 4px;
+    }
+    .product-label {
+        margin-top: calc(40 * var(--u));
+    }
+
+    .maintit {
+        font-size: calc(28 * var(--u));
+    }
+    .subtit {
+        font-size: 24px;
+    }
+    .smallboxs {
+        grid-template-columns: repeat(5, 1fr);
+        gap: calc(4 * var(--u));
+        width: 100%;
+        padding: calc(15 * var(--u)) 0;
+    }
+    .smallbox {
+        gap: 6px;
+        word-break: keep-all;
+        text-align: center;
+        padding: calc(20 * var(--u)) calc(8 * var(--u));
+        height: 100%;
+        font-size: var(--font-small);
+    }
+    .smallbox.type1 {
+        padding: calc(20 * var(--u)) calc(30 * var(--u));
+    }
+    .smallbox.bluebg {
+        font-size: 16px;
+    }
+    .before span,
+    .after span {
+        display: block;
+        margin-top: 8px;
+    }
+    .ipo-card {
+        padding: calc(24 * var(--u)) calc(36 * var(--u)) calc(24 * var(--u)) calc(28 * var(--u));
+    }
+    .ipo-card:not(:first-child) {
+        padding-left: calc(58 * var(--u));
+    }
+    .ipo-head {
+        font-size: calc(14 * var(--u));
+    }
+    .ipo-card h3 {
+        font-size: calc(24 * var(--u));
+        margin-bottom: calc(20 * var(--u));
+    }
+
+    .ipo-list {
+        grid-template-columns: 1fr;
+        gap: calc(16 * var(--u));
+    }
+    .ipo-list b {
+        font-size: 16px;
+        margin-bottom: calc(8 * var(--u));
+    }
+    .ipo-list span {
+        font-size: var(--font-xsmall);
+    }
+
+    .ipo-pill {
+        font-size: calc(14 * var(--u));
+        padding: calc(2 * var(--u)) calc(16 * var(--u));
+    }
+    .product-tag {
+        font-size: calc(var(--font-primary) * var(--u));
+    }
+
+    .product-col h3 {
+        font-size: calc(21 * var(--u));
+        line-height: 120%;
+    }
+    .product-shot {
+        height: calc(236 * var(--u));
+    }
+    .benefit-card {
+        padding: calc(30 * var(--u)) calc(20 * var(--u));
+    }
+    .road-col .check-list {
+        padding: 0 calc(10 * var(--u));
+    }
+    .road-step .road-stage {
+        text-align: center;
+    }
+    .road-step h3 {
+        font-size: calc(22 * var(--u));
+        text-align: center;
+    }
+    .road-col .check-list li {
+        font-size: var(--font-small);
+    }
+    .cta-box {
+        padding: 50px;
+    }
+    .cta-box .section-tit {
+        font-size: var(--font-medium);
+    }
+    .btn.cta {
+        padding: 12px 22px;
+        font-size: 16px;
+        letter-spacing: -0.32px;
+        white-space: nowrap;
+    }
+}
+@media screen and (max-width: 768px) {
+    /* section1 */
+    .section1 > .contents-wrap,
+    section > .contents-wrap {
+        padding: 0 20px;
+    }
+    .visual-image {
+        width: calc(670 * var(--u));
+        margin-bottom: 6vh;
+        margin-left: 0;
+    }
+
+    /* //section1 */
+
+    /* section4 */
+    .smallboxs {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .smallboxs.type1 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    /* //section4 */
+    /* section5 */
+    .ipo-flow {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    .ipo-card {
+        /* 위: 가운데 홈(노치) / 아래: 가운데 화살표(아래로 향함) */
+        clip-path: polygon(0 0, 50% calc(34 * var(--u)), 100% 0, 100% calc(100% - 34 * var(--u)), 50% 100%, 0 calc(100% - 34 * var(--u)));
+        margin-right: 0;
+        margin-bottom: calc(-18 * var(--u));
+        border-radius: 0;
+        min-height: auto;
+        /* 위 노치(34u) 아래로 콘텐츠가 너무 붙지 않게 상단 여백 확대 */
+        padding: calc(60 * var(--u)) calc(30 * var(--u)) calc(52 * var(--u));
+    }
+    .ipo-card:not(:first-child) {
+        padding-left: calc(30 * var(--u));
+    }
+    /* 첫 카드: 위는 평평, 아래만 화살표 */
+    .ipo-card:first-child {
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 34 * var(--u)), 50% 100%, 0 calc(100% - 34 * var(--u)));
+        border-radius: calc(14 * var(--u)) calc(14 * var(--u)) 0 0;
+        padding-top: calc(30 * var(--u));
+    }
+    /* 마지막 카드: 위는 홈, 아래는 평평 */
+    .ipo-output {
+        clip-path: polygon(0 0, 50% calc(34 * var(--u)), 100% 0, 100% 100%, 0 100%);
+        border-radius: 0 0 calc(14 * var(--u)) calc(14 * var(--u));
+        margin-bottom: 0;
+        padding-bottom: calc(30 * var(--u));
+    }
+    .ipo-list,
+    .benefit-grid,
+    .change-row,
+    .roadmap,
+    .product-cols {
+        grid-template-columns: 1fr;
+    }
+    .roadmap {
+        margin-bottom: 0;
+    }
+    .product-tag {
+        margin-bottom: 16px;
+    }
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .product-shot {
+        height: auto;
+    }
+    /* //section5 */
+
+    .benefit-card p {
+        font-size: var(--font-small);
+    }
+    /* section8: road-step 화살표 (깊이 16으로 덜 뾰족하게 + 상하 대칭 패딩으로 가운데 정렬) */
+    .road-label {
+        font-size: 17px;
+        margin-top: 32px;
+    }
+    .road-step {
+        width: 100%;
+        clip-path: polygon(0 0, 50% calc(16 * var(--u)), 100% 0, 100% calc(100% - 16 * var(--u)), 50% 100%, 0 calc(100% - 16 * var(--u)));
+        border-radius: 0;
+        padding: calc(34 * var(--u)) calc(30 * var(--u));
+    }
+    /* 세로 스택이라 가로 겹침(너비 +20)은 해제 */
+    .road-col:not(:last-child) .road-step {
+        width: 100%;
+    }
+    /* 1번째: 위 평평 + 아래 화살표 */
+    .road-col:first-child .road-step {
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16 * var(--u)), 50% 100%, 0 calc(100% - 16 * var(--u)));
+        border-radius: calc(8 * var(--u)) calc(8 * var(--u)) 0 0;
+    }
+    /* 4번째(마지막): 위 홈 + 아래 평평(화살표 제거) */
+    .road-col:last-child .road-step {
+        clip-path: polygon(0 0, 50% calc(16 * var(--u)), 100% 0, 100% 100%, 0 100%);
+        border-radius: 0 0 calc(8 * var(--u)) calc(8 * var(--u));
+    }
+    .road-col .check-list {
+        margin-bottom: calc(20 * var(--u));
+        margin-top: calc(5 * var(--u));
+    }
+    .check-list li {
+        height: 24px;
+    }
+    .check-list li::before {
+        top: calc(6 * var(--u));
+    }
+    /* //section8: road-step화살표*/
+}
