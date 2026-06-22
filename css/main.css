@@ -1168,7 +1168,7 @@ section > .contents-wrap {
 .fd-line1,
 .fd-line2 {
     display: inline;
-    font-size: 20px;
+    font-size: var(--font-medium);
     font-weight: 700;
     font-family: "Pretendard";
     color: var(--color-primary-500);

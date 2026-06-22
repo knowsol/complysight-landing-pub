@@ -438,6 +438,8 @@ img {
 .card-desc {
     font-size: calc(15 * var(--u));
     font-weight: 400;
+    color: var(--color-gray-700);
+    text-align: center;
     line-height: 1.6;
 }
 .card-danger {
@@ -838,7 +840,8 @@ img {
         font-size: var(--font-primary);
     }
     .card-desc {
-        font-size: calc(14 * var(--u));
+        font-size: var(--font-small);
+        text-align: left;
     }
     .card-danger {
         font-size: var(--font-primary);
