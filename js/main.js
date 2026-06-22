@@ -53,6 +53,76 @@ $(function () {
         lastHeaderY = y;
     }
     /* ---------------------------------------------------------
+     2) hamburger버튼 (1280px 이하: 메뉴 패널 토글)
+  --------------------------------------------------------- */
+    const mq = window.matchMedia("(min-width: 1281px)");
+
+    //1280px 이하- 레이어팝업 노출
+    const HAMBURGER_TRANSITION_MS = 250;
+    const closeMenuPops = (options = {}) => {
+        const animate = !!options.animate;
+
+        document.querySelectorAll(".layerPop.menuPop").forEach((pop) => {
+            const isVisible = pop.style.display === "flex";
+
+            if (animate && isVisible) {
+                pop.classList.remove("is-open");
+                window.setTimeout(() => {
+                    if (!pop.classList.contains("is-open")) {
+                        pop.style.display = "none";
+                    }
+                }, HAMBURGER_TRANSITION_MS);
+                return;
+            }
+
+            pop.classList.remove("is-open");
+            pop.style.display = "none";
+        });
+        // 햄버거 아이콘을 다시 ≡ 모양으로(부드럽게 X→≡ 전환)
+        $(".btn-hamburger").removeClass("active").attr("aria-expanded", "false");
+    };
+
+    const bindHamburger = () => {
+        const $btn = $(".btn-hamburger");
+        if (!$btn.length) return;
+        $btn.off("click.hamburger");
+
+        if (mq.matches) {
+            // 1281px 이상: 햄버거 숨김(데스크톱 메뉴 노출) → 열려있던 모바일 패널만 정리
+            closeMenuPops();
+        } else {
+            $btn.on("click.hamburger", function () {
+                const targetSel = this.dataset.target;
+                const target = targetSel ? document.querySelector(targetSel) : null;
+                if (!target) return;
+
+                const isOpen = target.style.display === "flex";
+                if (isOpen) {
+                    closeMenuPops({ animate: true });
+                    return;
+                }
+
+                closeMenuPops();
+                target.style.display = "flex";
+                target.classList.remove("is-open");
+                window.requestAnimationFrame(() => {
+                    target.classList.add("is-open");
+                });
+                // 햄버거 → X 부드럽게 전환(.active 모핑 트리거)
+                this.classList.add("active");
+                this.setAttribute("aria-expanded", "true");
+            });
+        }
+    };
+
+    if (mq.addEventListener) {
+        mq.addEventListener("change", bindHamburger);
+    } else if (mq.addListener) {
+        mq.addListener(bindHamburger);
+    }
+    bindHamburger();
+
+    /* ---------------------------------------------------------
      4) Scene navigation dots
   --------------------------------------------------------- */
     var $nav = $("#sceneNav");
@@ -230,9 +300,7 @@ $(function () {
         - CSS의 .reveal / .section4.is-in 효과를 구동한다
         - 모션 비선호 사용자 / 미지원 브라우저는 그대로 노출
   --------------------------------------------------------- */
-    var prefersReduced =
-        window.matchMedia &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if ("IntersectionObserver" in window && !prefersReduced) {
         var io = new IntersectionObserver(
@@ -244,7 +312,7 @@ $(function () {
             },
             // 요소가 화면에 충분히 들어온 뒤 재생(미리 시작해 꼬리만 보이는 현상 방지):
             // 뷰포트 하단에서 10% 안쪽으로 들어왔을 때 트리거
-            { threshold: 0, rootMargin: "0px 0px -10% 0px" }
+            { threshold: 0, rootMargin: "0px 0px -10% 0px" },
         );
 
         // 관찰 대상을 모은 뒤, 숨김 상태가 paint된 다음 한꺼번에 관찰을 시작한다.
@@ -318,6 +386,14 @@ $(function () {
 $(function () {
     var $header = $("#header");
     var $toggle = $(".btn-hamburger");
+
+    // 헤더 로고를 모바일 메뉴 패널에도 재사용(복제) — path를 중복 작성하지 않고
+    // 헤더의 동일 로고를 그대로 가져온다. 흰 배경이라 .on-dark 불필요(기본 색이 어두움).
+    var $panelLogo = $(".menuPop .logos .logo");
+    var headerLogoSvg = $("#header > .contents-wrap > .logo .logo-svg")[0];
+    if ($panelLogo.length && headerLogoSvg && !$panelLogo.children("svg").length) {
+        $panelLogo.append(headerLogoSvg.cloneNode(true));
+    }
 
     function setOpen(open) {
         $header.toggleClass("nav-open", open);

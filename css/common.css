@@ -55,6 +55,11 @@
     src: url(../assets/font/Pretendard-SemiBold.woff2) format("woff2");
     font-weight: 600;
 }
+@font-face {
+    font-family: "Pretendard";
+    src: url(../assets/font/Pretendard-Bold.woff2) format("woff2");
+    font-weight: 700;
+}
 
 :root {
     /* Color */
@@ -253,6 +258,15 @@ img {
 .btn {
     cursor: pointer;
     padding: calc(5 * var(--u)) calc(10 * var(--u));
+    transition: background-color 0.25s ease;
+}
+/* 버튼 hover: 배경을 더 어둡게 */
+.btn.bluebg:hover {
+    background-color: var(--color-brand);
+}
+.btn.blackbg:hover {
+    /* 검정→검정은 변화가 안 보이므로 살짝 밝은 톤으로(자연스럽지만 호버가 보이게) */
+    background-color: #3d3d3d;
 }
 .lg-block {
     display: block;
@@ -355,12 +369,21 @@ img {
 .header.on-dark .logo-svg {
     color: var(--color-white);
 }
+/* 모바일 메뉴 패널은 흰 배경 → 헤더의 on-dark(흰색 반전)와 무관하게 로고를 항상 어둡게 */
+.header.on-dark .menuPop .logo-svg,
+.menuPop .logo-svg {
+    color: var(--color-black);
+}
 .btn-hamburger {
     display: none;
 }
 /*//헤더 효과 */
 .menuPop {
     display: none;
+}
+.contents-top {
+    display: flex;
+    justify-content: space-between;
 }
 
 /************************** //End:header ***************************/
@@ -434,7 +457,7 @@ img {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 100;
 }
 .layerbg {
     position: absolute;
@@ -455,9 +478,10 @@ img {
     display: flex;
     flex-direction: column;
     position: relative;
-    z-index: 2;
+    z-index: 101;
     width: 100%;
-    padding: 40px 16px 30px;
+    height: 100%;
+    padding: 36px 20px;
     background-color: var(--color-white);
 }
 .layerPop .contents-area {
@@ -474,22 +498,51 @@ img {
     transform: translate(-50%, -50%);
     padding: 20px;
 }
+
 .layerPop-maincontent {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-top: 12px;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-top: 41px;
+    height: calc(100% - 30px);
 }
-.layerPop-maintit {
+.menus {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.menu-tit {
+    font-size: 22px;
+    color: var(--color-black);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.22px;
+    transition: color 0.2s ease;
+}
+.menu-tit.active,
+.menu-tit:hover {
+    color: var(--color-primary-500);
+}
+/* .layerPop-maintit {
     font-size: var(--font-large);
     font-weight: 600;
     line-height: 32px;
     letter-spacing: -0.48px;
     color: var(--color-black);
-}
+} */
 .popbottomBtn {
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-left: auto;
+}
+.intro-smallbtn {
+    /* --font-primary 는 main.css(:root)에서 18px로 재정의되어 16px이 되지 않으므로
+       이 버튼은 16px을 직접 지정 */
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.16px;
+    padding: 12px 24px;
+    border-radius: 20px;
+    color: var(--color-white);
 }
 /* ----------------------//End: 레이어팝업----------------------------------------------------  */
 
@@ -641,13 +694,19 @@ img {
     /* 햄버거 메뉴 */
     .btn-hamburger {
         position: relative;
-        width: 30px;
-        height: 30px;
+        /* 메뉴 패널(.layerPop z-index:100) 위로 떠서 같은 버튼이 ≡↔X로 모핑 */
+        z-index: 130;
+        width: 28px;
+        height: 18px;
         display: block;
         background: none;
         border: none;
         cursor: pointer;
         padding: 0;
+    }
+    .btn-hamburger.active {
+        width: 28px;
+        height: 28px;
     }
 
     /* 햄버거 메뉴의 가운데 선 */
@@ -672,7 +731,16 @@ img {
         background-color: var(--color-white);
         transition: 0.3s;
     }
-
+    .btn-hamburger.active span::before,
+    .btn-hamburger.active span::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--color-black);
+        transition: 0.3s;
+    }
     .btn-hamburger span::before {
         top: -10px;
     }
@@ -684,6 +752,7 @@ img {
     /* 클릭(active) 시 X자 변환 애니메이션 */
     .btn-hamburger.active span {
         background-color: transparent;
+        color: var(--color-black);
     }
 
     .btn-hamburger.active span::before {
@@ -698,6 +767,7 @@ img {
     /* //햄버거 메뉴 */
     .logo-svg {
         width: calc(116 * var(--u));
+        z-index: 110;
     }
     /* 스크롤로 헤더가 다시 보일 때(solid)만 흰 배경 + 로고·햄버거 검정 */
     .header.solid {
@@ -710,7 +780,9 @@ img {
     .header.solid .logo-svg {
         color: var(--color-black);
     }
-    .header.solid .btn-hamburger span,
+    .header.solid .btn-hamburger span {
+        background-color: transparent;
+    }
     .header.solid .btn-hamburger span::before,
     .header.solid .btn-hamburger span::after {
         background-color: var(--color-black);

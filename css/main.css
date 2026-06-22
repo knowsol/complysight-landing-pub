@@ -1131,3 +1131,94 @@ section > .contents-wrap {
     }
 }
 /************************** //End:motion ***************************/
+
+/**************************Start:플로팅 진단 버튼 ***************************/
+/* 공통: 흰 배경 + 파란 그라디언트 보더(둥근 모서리를 따라감).*/
+.float-diagnose {
+    position: fixed;
+    z-index: 90;
+    right: 3%;
+    bottom: 4%;
+    transform: translate(-3%, -4%);
+
+    display: inline-flex;
+    align-items: center;
+    gap: calc(8 * var(--u));
+    padding: calc(16 * var(--u)) calc(32 * var(--u));
+    border: calc(4 * var(--u)) solid transparent;
+    border-radius: 100px;
+    background:
+        linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(135deg, #005cb9 0%, #002953 100%) border-box;
+    white-space: nowrap;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+.float-diagnose:hover {
+    /* 위치 보정 translate(-3%,-4%)는 유지하고 위로만 이동(합성). 전체를 덮어쓰면 X가 0이 돼 오른쪽으로 튐 */
+    transform: translate(-3%, -4%) translateY(calc(-3 * var(--u)));
+}
+.float-diagnose-ico {
+    width: calc(22 * var(--u));
+    height: auto;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+.fd-line1,
+.fd-line2 {
+    display: inline;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: "Pretendard";
+    color: var(--color-primary-500);
+    line-height: 18px;
+    letter-spacing: -0.4px;
+}
+
+/* 모바일: 노트북 위 중앙에 고정 — 원형이 아니라 가로 타원(pill), 글씨 2줄 */
+@media screen and (max-width: 1280px) {
+    .float-diagnose {
+        right: 3%;
+        bottom: 2%;
+        transform: translate(-3%, -2%);
+        gap: 12px;
+        padding: 16px 24px;
+        text-align: left;
+        white-space: nowrap;
+    }
+    .float-diagnose:hover {
+        /* 모바일은 자리 그대로 유지(transform 덮어쓰면 X가 0이 돼 오른쪽으로 튐) */
+        transform: translate(-3%, -2%);
+    }
+
+    /* 글씨를 2줄로 */
+    .fd-line1,
+    .fd-line2 {
+        display: block;
+        font-size: 15px;
+        line-height: 1.2;
+        letter-spacing: -0.3px;
+    }
+    .float-diagnose-ico {
+        width: 30px;
+    }
+}
+/* 등장: 히어로 이미지(heroImg, 0.3s+0.9s=1.2s)가 나온 다음에 떠오른다.
+   모바일 중앙정렬 transform과 충돌하지 않도록 opacity만 애니메이션.
+   (reduced-motion 사용자는 기본 노출) */
+@media (prefers-reduced-motion: no-preference) {
+    .float-diagnose {
+        opacity: 0;
+        animation: floatIn 0.5s ease 1.3s both;
+    }
+}
+@keyframes floatIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+/************************** //End:플로팅 진단 버튼 ***************************/

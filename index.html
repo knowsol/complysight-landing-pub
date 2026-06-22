@@ -74,48 +74,42 @@
 				<!-- 모바일 메뉴 패널 -->
 				<div class="layerPop menuPop">
 					<div class="layerbg backdrop"></div>
-					<div class="layerpop-contents">
+					<div class="layerPop-contents">
 						<ul class="contents-top">
 							<li class="logos">
 								<a href="/" class="logo"></a>
 							</li>
-							<li class="otherbtns">
-								<button type="button" class="btn hamburger"
-									data-target=".menuPop"><span></span></button>
-							</li>
+
 						</ul>
-						<ul class="menus">
-							<li class="menu">
-								<a href="#" class="menu-tit">컴플리사이트</a>
-							</li>
-							<li class="menu">
-								<a href="#" class="menu-tit">
-									매니저
-								</a>
-							</li>
-							<li class="menu">
-								<a href="#" class="menu-tit">
-									센티널
-								</a>
-							</li>
-							<li class="menu">
-								<a href="#" class="menu-tit">
-									가격
-								</a>
-							</li>
-						</ul>
+						<div class="layerPop-maincontent">
+							<ul class="menus">
+								<li class="menu">
+									<a href="#" class="menu-tit">컴플리사이트</a>
+								</li>
+								<li class="menu">
+									<a href="#" class="menu-tit">
+										매니저
+									</a>
+								</li>
+								<li class="menu">
+									<a href="#" class="menu-tit">
+										센티널
+									</a>
+								</li>
+								<li class="menu">
+									<a href="#" class="menu-tit">
+										가격
+									</a>
+								</li>
+							</ul>
+							<div class="buttons popbottomBtn">
+								<a href="" class="btn intro-smallbtn blackbg">예방점검 항목 확인</a>
+								<a href="" class="btn intro-smallbtn bluebg">도입 문의</a>
+							</div>
+						</div>
+
 					</div>
 				</div>
-				<!-- <nav class="mobile-nav">
-					<a href="#features" class="m-nav-link">컴플리사이트</a>
-					<a href="#pricing" class="m-nav-link">매니저</a>
-					<a href="#contact" class="m-nav-link">센티널</a>
-					<a href="#contact" class="m-nav-link">가격</a>
-					<div class="m-nav-btns">
-						<a href="" class="btn introbtn blackbg">예방점검 항목 확인</a>
-						<a href="" class="btn introbtn bluebg">도입 문의</a>
-					</div>
-				</nav> -->
 			</div>
 			<!-- //헤더 -->
 
@@ -146,7 +140,14 @@
 						</div>
 						<div class="visual-image">
 							<img src="assets/images/section1-laptop.png" alt="">
+
 						</div>
+						<!-- 플로팅 진단 버튼 (PC: 우하단 고정 / 모바일: 중앙 타원 고정) -->
+						<a href="#" class="float-diagnose" aria-label="우리기관 진단하기">
+							<span class="float-diagnose-txt"><span class="fd-line1">우리기관</span> <span
+									class="fd-line2">진단하기</span></span>
+							<img class="float-diagnose-ico" src="assets/icons/btn-float.svg" alt="">
+						</a>
 					</div>
 				</section>
 				<!-- //Part1: 컴플리사이트 인트로 -->
@@ -416,7 +417,8 @@
 
 							</div>
 							<li class="after">
-								<p class="maintit blue-txt">AFTER <span class="subtit blue-txt">통합관리 ·<span class="auto-emph"><i>자</i><i>동</i> <i>관</i><i>리</i></span></span></p>
+								<p class="maintit blue-txt">AFTER <span class="subtit blue-txt">통합관리 ·<span
+											class="auto-emph"><i>자</i><i>동</i> <i>관</i><i>리</i></span></span></p>
 								<ul class="smallboxs type1">
 									<li class="smallbox bluebg">
 										기준 내재화
@@ -653,15 +655,19 @@
 					</div>
 				</div>
 				<!-- //도입&진단 버튼 -->
+
+
 			</div>
 			<div class="footer">
 				<p class="footer-brand">COMPLYSIGHT(컴플리사이트)</p>
-				<p class="footer-desc">공공기관·정보시스템 예방점검 업무를 자동화하는 컴플라이언스 솔루션.</p>
+				<p class="footer-desc">공공기관·정보시스템 예방점검 업무를 자동화하는<br class="md-block"> 컴플라이언스 솔루션.</p>
 				<p class="footer-copy">© 2026 Knowwhere Soft. All rights reserved.</p>
 			</div>
 		</div>
 
 	</div>
+
+
 
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="js/main.js"></script>
