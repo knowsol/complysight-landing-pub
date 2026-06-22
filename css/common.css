@@ -286,17 +286,25 @@ img {
 }
 .gnb {
     display: flex;
-    margin-left: calc(220 * var(--u));
-    margin-right: calc(30 * var(--u));
-    gap: calc(90 * var(--u));
+    /* 헤더 폭에 따라 좌우로 밀리지 않도록 컨테이너 정중앙에 절대 고정 */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* 중앙 고정(left:50%)을 유지하면서 1280→1920 구간에서 gap을 유동적으로 축소
+       (1920: 90px → 1281: ~30px) → 넓은 버튼과 겹치지 않게 함. 1920↑은 --u로 확대 */
+    gap: clamp(30px, calc(9.39vw - 90px), calc(90 * var(--u)));
+    white-space: nowrap;
 }
 .gnb-menu {
     display: inline-block;
-    padding: calc(16 * var(--u)) calc(20 * var(--u));
+    /* 좌우 패딩도 좁아질수록 축소(20px→12px)해 메뉴 전체 폭을 줄임 */
+    padding: calc(16 * var(--u)) clamp(12px, calc(1.25vw - 4px), calc(20 * var(--u)));
     border-radius: calc(8 * var(--u));
     font-size: calc(22 * var(--u));
     font-weight: 700;
     color: var(--color-black);
+    white-space: nowrap;
     transition:
         background-color 0.3s ease,
         color 0.3s ease;
@@ -312,6 +320,8 @@ img {
     font-weight: 400;
     color: var(--color-white);
     border-radius: calc(21 * var(--u));
+    white-space: nowrap;
+    flex-shrink: 0;
     transition:
         background-color 0.3s ease,
         border-color 0.3s ease,

@@ -20,6 +20,9 @@ section > .contents-wrap {
     background: url(../assets/images/section1-bg.png) no-repeat center bottom;
     background-size: cover;
     width: 100%;
+    /* 히어로 전용 단위: --u와 달리 1px 클램프가 없어 1920 미만에서도 화면폭에
+       비례해 자연스럽게 축소된다. 1920 이상에선 --u와 동일. (≤1280은 모바일 쿼리가 덮음) */
+    --hu: calc(100vw / 1920);
 }
 .section1 > .contents-wrap {
     display: flex;
@@ -29,30 +32,30 @@ section > .contents-wrap {
     /* 배경은 섹션 전체 폭을 채우고, 콘텐츠는 1920 시안과 같은 좌측 정렬(좌 200)로
        화면 폭에 비례해 배치 → 넓은 화면에서도 글씨는 좌측, 노트북은 우측으로 퍼짐 */
     max-width: 85vw;
-    margin: 0 auto 0 calc(200 * var(--u));
+    margin: 0 auto 0 calc(200 * var(--hu));
 }
 
 .visual-contents {
     flex: 1;
     align-self: flex-start;
-    padding-top: calc(260 * var(--u));
+    padding-top: calc(260 * var(--hu));
 }
 .visual-subtit {
-    font-size: calc(24 * var(--u));
+    font-size: calc(24 * var(--hu));
     font-weight: 600;
     letter-spacing: calc(-0.24 * var(--u));
     color: var(--color-primary-500);
 }
 .visual-tit {
-    margin-top: calc(16 * var(--u));
-    font-size: calc(52 * var(--u));
+    margin-top: calc(16 * var(--hu));
+    font-size: calc(52 * var(--hu));
     font-weight: 800;
     line-height: 1.2;
     letter-spacing: calc(-0.52 * var(--u));
 }
 .visual-middle {
-    margin-top: calc(32 * var(--u));
-    font-size: calc(20 * var(--u));
+    margin-top: calc(32 * var(--hu));
+    font-size: calc(20 * var(--hu));
     line-height: 1.6;
     letter-spacing: calc(-0.4 * var(--u));
 }
@@ -60,14 +63,14 @@ section > .contents-wrap {
     font-weight: 600;
 }
 .visual-bottom {
-    margin-top: calc(60 * var(--u));
+    margin-top: calc(60 * var(--hu));
     display: flex;
     flex-direction: column;
-    gap: calc(16 * var(--u));
+    gap: calc(16 * var(--hu));
 }
 .visual-point {
     position: relative;
-    font-size: calc(22 * var(--u));
+    font-size: calc(22 * var(--hu));
     font-weight: 600;
     line-height: 1;
     letter-spacing: calc(-0.22 * var(--u));
@@ -80,16 +83,16 @@ section > .contents-wrap {
     content: "";
     background: url(../assets/icons/chk-circle.svg) no-repeat;
     background-size: cover;
-    width: calc(34 * var(--u));
-    height: calc(34 * var(--u));
+    width: calc(34 * var(--hu));
+    height: calc(34 * var(--hu));
     display: inline-block;
     margin-right: calc(16 * var(--u));
 }
 .visual-image {
     flex: none;
-    /* 968(이미지) + 40(좌측 패딩) = 1008, 화면 폭에 비례해 확대 */
-    width: calc(1008 * var(--u));
-    padding-left: calc(40 * var(--u));
+    /* 968(이미지) + 40(좌측 패딩) = 1008, 화면 폭에 비례해 확대/축소 */
+    width: calc(1008 * var(--hu));
+    padding-left: calc(40 * var(--hu));
     /* 노트북을 하단으로 내려 밑면이 책상 표면에 닿도록 정렬 */
     align-self: flex-end;
     margin-bottom: 6vh;
@@ -249,6 +252,8 @@ section > .contents-wrap {
     font-weight: 600;
     color: var(--color-gray-600);
     letter-spacing: calc(-0.56 * var(--u));
+    /* '통합관리 ·자동 관리'가 모바일에서 줄바꿈되지 않고 한 줄로 */
+    white-space: nowrap;
 }
 .maintit.blue-txt,
 .subtit.blue-txt {
@@ -932,3 +937,197 @@ section > .contents-wrap {
     }
     /* //section8: road-step화살표*/
 }
+
+/**************************Start:motion (등장 효과) ***************************/
+/* [기본 스타일] 점·색상은 항상 적용 (모션 비선호 사용자도 점은 보여야 함) */
+
+/* section4 '자동 관리' 강조점: 글자마다 4x4 #c01639 점을 직접 그림 */
+.auto-emph,
+.auto-emph i {
+    /* common.css의 span{color:black} 덮어쓰기 → 원래 파란 글자 유지 */
+    color: inherit;
+}
+/* 모바일의 .after span{display:block} 규칙이 .auto-emph까지 줄바꿈시키므로
+   inline 유지 → '통합관리 ·자동 관리'가 한 줄로 */
+.after .auto-emph {
+    display: inline;
+    margin-top: 0;
+}
+/* 모바일에선 AFTER가 윗줄로 분리되어 글자 위 점이 AFTER줄과 겹친다.
+   subtit 줄을 살짝 내려 점이 들어갈 여백을 확보 (PC에선 inline이라 무시됨) */
+.after .subtit {
+    margin-top: calc(20 * var(--u));
+}
+.auto-emph i {
+    position: relative;
+    font-style: normal;
+}
+.auto-emph i::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: calc(-4 * var(--u));
+    width: calc(4 * var(--u));
+    height: calc(4 * var(--u));
+    border-radius: 50%;
+    background-color: #c01639;
+    transform: translateX(-50%);
+}
+
+/* BEFORE→AFTER 화살표 기본: 회색 */
+.arrow-down svg {
+    display: block;
+    margin: 0 auto;
+}
+.arrow-down .chevron {
+    fill: var(--color-gray-500);
+}
+
+/* [애니메이션] 모션 허용 사용자에게만 적용 (접근성) */
+@media (prefers-reduced-motion: no-preference) {
+    /* ---- 1) 강조점: 위에서 톡 떨어지듯 순서대로 등장 ---- */
+    .auto-emph i::before {
+        opacity: 0;
+        transform: translate(-50%, calc(-7 * var(--u)));
+        transition:
+            opacity 0.4s ease,
+            transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition-delay: var(--dot-delay, 0s);
+    }
+    /* 트리거: '자동 관리'(.after)가 실제로 화면에 들어올 때 발동
+       (스크롤/씬 이동으로 도달하면 그 순간 재생) */
+    .after.is-in .auto-emph i::before {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+    .auto-emph i:nth-of-type(1)::before {
+        --dot-delay: 0.05s;
+    }
+    .auto-emph i:nth-of-type(2)::before {
+        --dot-delay: 0.15s;
+    }
+    .auto-emph i:nth-of-type(3)::before {
+        --dot-delay: 0.25s;
+    }
+    .auto-emph i:nth-of-type(4)::before {
+        --dot-delay: 0.35s;
+    }
+
+    /* ---- 2) 화살표: 화살표가 화면에 들어올 때 위→아래로 파란색이 흐른다 ---- */
+    .arrow-down.is-in .chevron {
+        animation: arrowFlow 1.7s ease-in-out infinite;
+    }
+    .arrow-down.is-in .chevron-upper {
+        animation-delay: 0s;
+    }
+    .arrow-down.is-in .chevron-lower {
+        animation-delay: 0.22s;
+    }
+    @keyframes arrowFlow {
+        0%,
+        60%,
+        100% {
+            fill: var(--color-gray-500);
+        }
+        25% {
+            fill: var(--color-primary-500);
+        }
+    }
+
+    /* ---- 3) 페이지 전역 스크롤 등장 효과 ---- */
+    /* JS(IntersectionObserver)가 뷰포트 진입 시 .is-in 을 부여한다 */
+    .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+            opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+            transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+        transition-delay: var(--reveal-delay, 0s);
+        will-change: opacity, transform;
+    }
+    .reveal.is-in {
+        opacity: 1;
+        transform: none;
+    }
+    /* benefit-card 는 더 빠르게 */
+    .benefit-card.reveal {
+        transition-duration: 0.35s;
+    }
+
+    /* section4 BEFORE→AFTER: before는 왼쪽에서, after는 오른쪽에서 등장.
+       위→아래로 쌓여 있어 스크롤하면 before → 화살표(흐름) → after 순서로 보인다.
+       after는 약간 지연시켜 화살표 효과 뒤에 들어오는 느낌을 준다. */
+    .before.reveal {
+        transform: translateX(-32px);
+    }
+    .after.reveal {
+        transform: translateX(-32px);
+        --reveal-delay: 0.15s;
+    }
+    .before.reveal.is-in,
+    .after.reveal.is-in {
+        transform: none;
+    }
+
+    /* ---- 4) section1(hero): 글씨·이미지 순차 등장 (모바일 동일)
+       .section1.is-in 일 때만 재생 → IO가 진입/이탈을 토글하므로 맨 위로 다시
+       올라오면 재생된다. 평소(미진입·이탈)엔 opacity:0으로 숨김. ---- */
+    .section1 .visual-subtit,
+    .section1 .visual-tit,
+    .section1 .visual-middle,
+    .section1 .visual-point,
+    .section1 .visual-image {
+        opacity: 0;
+    }
+    .section1.is-in .visual-subtit,
+    .section1.is-in .visual-tit,
+    .section1.is-in .visual-middle,
+    .section1.is-in .visual-point,
+    .section1.is-in .visual-image {
+        animation: heroIn 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+    .section1.is-in .visual-subtit {
+        animation-delay: 0.1s;
+    }
+    .section1.is-in .visual-tit {
+        animation-delay: 0.22s;
+    }
+    .section1.is-in .visual-middle {
+        animation-delay: 0.36s;
+    }
+    .section1.is-in .visual-point:nth-child(1) {
+        animation-delay: 0.5s;
+    }
+    .section1.is-in .visual-point:nth-child(2) {
+        animation-delay: 0.6s;
+    }
+    .section1.is-in .visual-point:nth-child(3) {
+        animation-delay: 0.7s;
+    }
+    .section1.is-in .visual-image {
+        animation-name: heroImg;
+        animation-duration: 0.9s;
+        animation-delay: 0.3s;
+    }
+    @keyframes heroIn {
+        from {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+    @keyframes heroImg {
+        from {
+            opacity: 0;
+            transform: translateX(40px) scale(0.98);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+}
+/************************** //End:motion ***************************/

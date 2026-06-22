@@ -224,6 +224,92 @@ $(function () {
         var offset = isDesktop() ? 0 : 50;
         animateScroll($t.offset().top - offset, 650);
     });
+
+    /* ---------------------------------------------------------
+     7) Scroll reveal — 뷰포트 진입 시 .is-in 부여
+        - CSS의 .reveal / .section4.is-in 효과를 구동한다
+        - 모션 비선호 사용자 / 미지원 브라우저는 그대로 노출
+  --------------------------------------------------------- */
+    var prefersReduced =
+        window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if ("IntersectionObserver" in window && !prefersReduced) {
+        var io = new IntersectionObserver(
+            function (entries) {
+                entries.forEach(function (en) {
+                    // 들어오면 등장, 나가면 다시 숨김 → 올렸다 내릴 때도 매번 재생
+                    en.target.classList.toggle("is-in", en.isIntersecting);
+                });
+            },
+            // 요소가 화면에 충분히 들어온 뒤 재생(미리 시작해 꼬리만 보이는 현상 방지):
+            // 뷰포트 하단에서 10% 안쪽으로 들어왔을 때 트리거
+            { threshold: 0, rootMargin: "0px 0px -10% 0px" }
+        );
+
+        // 관찰 대상을 모은 뒤, 숨김 상태가 paint된 다음 한꺼번에 관찰을 시작한다.
+        // (그래야 첫 화면에 이미 보이는 요소[hero]도 트랜지션이 생략되지 않고 등장한다)
+        var toObserve = [];
+        // reveal: 숨겼다가 등장. stagger=true 면 형제 순서대로 지연
+        // step: stagger 간격(초). 기본 0.08
+        function reveal(sel, stagger, step) {
+            var s = step || 0.05;
+            $(sel).each(function (i) {
+                this.classList.add("reveal");
+                if (stagger) this.style.setProperty("--reveal-delay", i * s + "s");
+                toObserve.push(this);
+            });
+        }
+        // watch: 숨기지 않고 .is-in 만 부여(섹션 단위 효과 트리거용)
+        function watch(sel) {
+            $(sel).each(function () {
+                toObserve.push(this);
+            });
+        }
+
+        // section1 (hero) — 진입 시 CSS keyframe 재생(맨 위로 재진입 때마다 재생)
+        watch(".section1");
+        // section2
+        reveal(".section2 .section-head");
+        reveal(".cards .card", true);
+        // section3
+        reveal(".section3 .section-head");
+        reveal(".rev-left");
+        reveal(".rev-right");
+        reveal(".product-grid .product-card", true);
+        // section4
+        reveal(".section4 .section-head");
+        reveal(".before");
+        reveal(".after"); // '자동 관리' 강조점 트리거(.after.is-in)
+        watch(".arrow-down"); // 화살표 흐름 트리거(.arrow-down.is-in)
+        // section5
+        reveal(".section5 .section-head");
+        reveal(".ipo-flow .ipo-card", true);
+        // section6
+        reveal(".section6 .section-head");
+        reveal(".product-cols .product-col", true);
+        // section7
+        reveal(".section7 .section-head");
+        reveal(".benefit-grid .benefit-card", true, 0.04); // 더 빠른 stagger
+        // section8
+        reveal(".section8 .section-head");
+        reveal(".road-label");
+        reveal(".roadmap .road-col", true);
+        // CTA
+        reveal(".cta-box");
+
+        // 숨김 상태(opacity:0)를 먼저 강제로 반영(reflow)한 뒤 모두 관찰한다.
+        // 모든 요소를 IO로 관찰 → 뷰포트 진입 시 등장, 이탈 시 숨김(재진입 때 재생).
+        // (hero[section1]은 IO 대상이 아니라 CSS 로드 애니메이션이 담당)
+        void document.documentElement.offsetHeight;
+        window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(function () {
+                toObserve.forEach(function (el) {
+                    io.observe(el);
+                });
+            });
+        });
+    }
 });
 
 /* =========================================================
