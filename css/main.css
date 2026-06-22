@@ -1210,7 +1210,7 @@ section > .contents-wrap {
 @media (prefers-reduced-motion: no-preference) {
     .float-diagnose {
         opacity: 0;
-        animation: floatIn 0.5s ease 1.3s both;
+        animation: floatIn 0.4s ease 0.8s both;
     }
 }
 @keyframes floatIn {
