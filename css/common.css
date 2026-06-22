@@ -780,13 +780,12 @@ img {
     .header.solid .logo-svg {
         color: var(--color-black);
     }
-    .header.solid .btn-hamburger span {
-        background-color: transparent;
-    }
+    .header.solid .btn-hamburger span,
     .header.solid .btn-hamburger span::before,
     .header.solid .btn-hamburger span::after {
         background-color: var(--color-black);
     }
+    /* X(active)일 때만 가운데 선 숨김 */
     .header.solid .btn-hamburger.active span {
         background-color: transparent;
     }
