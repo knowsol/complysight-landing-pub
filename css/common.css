@@ -805,6 +805,9 @@ img {
     section + section {
         padding: calc(80 * var(--u)) 0;
     }
+    .layerPop-contents {
+        padding: 36px 50px;
+    }
     .cards {
         grid-template-columns: repeat(2, 1fr);
         margin-top: 0;
@@ -828,6 +831,9 @@ img {
     .header > .contents-wrap {
         padding: 0 20px;
         margin: 30px auto;
+    }
+    .layerPop-contents {
+        padding: 36px 20px;
     }
     .cards {
         grid-template-columns: 1fr;

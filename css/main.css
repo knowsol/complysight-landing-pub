@@ -314,10 +314,9 @@ section > .contents-wrap {
     padding: calc(38 * var(--u)) calc(46 * var(--u)) calc(38 * var(--u)) calc(40 * var(--u));
     color: var(--color-white);
     min-height: calc(330 * var(--u));
-    /* 내용을 세로 중앙 정렬 → min-height로 남는 공간이 위아래 동일하게 분배 */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     clip-path: polygon(0 0, calc(100% - 34 * var(--u)) 0, 100% 50%, calc(100% - 34 * var(--u)) 100%, 0 100%, calc(34 * var(--u)) 50%);
 }
 .ipo-card:first-child {
@@ -439,7 +438,8 @@ section > .contents-wrap {
 }
 .product-shot {
     margin-bottom: calc(30 * var(--u));
-    overflow: hidden;
+    /* hover 시 img가 위로 떠오르고 그림자(drop-shadow)가 박스 밖으로 나와도 안 잘리게 */
+    overflow: visible;
     height: calc(446 * var(--u));
 }
 .product-shot img {
@@ -448,6 +448,10 @@ section > .contents-wrap {
     height: 100%;
     object-fit: contain;
     object-position: left top;
+    /* hover lift/그림자 전이(빠져나올 때도 부드럽게) */
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
 }
 .product-col h3 {
     font-size: calc(26 * var(--u));
@@ -521,6 +525,35 @@ section > .contents-wrap {
     transition:
         transform 0.25s ease,
         box-shadow 0.25s ease;
+}
+/* ipo-card(clip-path 셰브론)·product-shot(object-fit로 레터박스됨)은 box-shadow가
+   박스(빈 공백 포함)에 생기므로, 실제 모양/이미지를 따라가는 drop-shadow 사용 */
+.ipo-card.reveal:hover {
+    /* 셰브론이 서로 겹쳐 있어(뒤 카드가 위), hover 시 맨 앞으로 올려야
+       옆 카드에 가려 어두워지지 않고 깨끗하게 떠오른다 */
+    z-index: 10;
+    transform: translateY(calc(-6 * var(--u)));
+    filter: drop-shadow(0 calc(8 * var(--u)) calc(16 * var(--u)) rgba(0, 0, 0, 0.45));
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
+}
+/* 반투명 카드(input/process)는 filter(독립 렌더)를 걸면 배경 블렌드가 풀려 옅어진다.
+   hover 때만 sky를 바닥에 깔아 '불투명-동등'(색은 평소와 동일)으로 만들어 옅어짐 방지.
+   (output 카드는 이미 불투명이라 불필요) */
+.ipo-input.reveal:hover {
+    background:
+        linear-gradient(var(--color-primary-200), var(--color-primary-200)),
+        var(--color-sky);
+}
+.ipo-process.reveal:hover {
+    background:
+        linear-gradient(var(--color-primary-300), var(--color-primary-300)),
+        var(--color-sky);
+}
+.product-shot:hover img {
+    transform: translateY(calc(-6 * var(--u)));
+    filter: drop-shadow(0 calc(8 * var(--u)) calc(16 * var(--u)) rgba(0, 0, 0, 0.22));
 }
 .benefit-ico {
     flex: none;

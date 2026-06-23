@@ -372,7 +372,7 @@ $(function () {
         watch(".arrow-down"); // 화살표 흐름 트리거(.arrow-down.is-in)
         // section5
         reveal(".section5 .section-head");
-        reveal(".ipo-flow .ipo-card", true);
+        reveal(".ipo-flow .ipo-card", true, 0.22); // 겹친 셰브론이라 간격을 크게(1→2→3 또렷이)
         // section6
         reveal(".section6 .section-head");
         reveal(".product-cols .product-col", true);
