@@ -311,7 +311,7 @@ section > .contents-wrap {
 }
 .ipo-card {
     position: relative;
-    padding: calc(38 * var(--u)) calc(46 * var(--u)) calc(38 * var(--u)) calc(40 * var(--u));
+    padding: calc(60 * var(--u)) calc(46 * var(--u)) calc(70 * var(--u)) calc(40 * var(--u));
     color: var(--color-white);
     min-height: calc(330 * var(--u));
     display: flex;
