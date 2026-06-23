@@ -177,12 +177,21 @@ $(function () {
   --------------------------------------------------------- */
     var animating = false;
 
+    // 스냅 중 보류(reveal-pending)된 요소들을 도착 후 재생한다(is-in 부여 → 트랜지션 등장)
+    function releasePendingReveals() {
+        var pend = document.querySelectorAll(".reveal-pending");
+        for (var i = 0; i < pend.length; i++) {
+            pend[i].classList.remove("reveal-pending");
+            pend[i].classList.add("is-in");
+        }
+    }
     function animateScroll(target, dur) {
         target = Math.max(0, Math.min(Math.round(target), docH() - viewH()));
         animating = true;
         $doc.stop(true).animate({ scrollTop: target }, dur, "swing", function () {
             window.setTimeout(function () {
                 animating = false;
+                releasePendingReveals(); // 도착 후 보류분 재생
             }, 60);
         });
     }
@@ -307,8 +316,21 @@ $(function () {
         var io = new IntersectionObserver(
             function (entries) {
                 entries.forEach(function (en) {
-                    // 들어오면 등장, 나가면 숨김 (올렸다 내릴 때도 매번 재생)
-                    en.target.classList.toggle("is-in", en.isIntersecting);
+                    var el = en.target;
+                    if (en.isIntersecting) {
+                        if (animating) {
+                            // 데스크톱 씬 스냅 중 진입한 요소는 보류 → 스냅이 끝나 도착한 뒤
+                            // 재생(효과가 스냅 도중 지나가버리지 않고 화면에서 또렷이 보이게).
+                            // 이미 보이던(떠나는) 섹션의 is-in은 건드리지 않으므로 깜빡임 없음.
+                            el.classList.add("reveal-pending");
+                        } else {
+                            el.classList.remove("reveal-pending");
+                            el.classList.add("is-in");
+                        }
+                    } else {
+                        // 나가면 숨김 (올렸다 내릴 때도 매번 재생)
+                        el.classList.remove("is-in", "reveal-pending");
+                    }
                 });
             },
             // 요소가 화면에 충분히 들어온 뒤 재생(미리 시작해 꼬리만 보이는 현상 방지):
@@ -320,9 +342,9 @@ $(function () {
         // (그래야 첫 화면에 이미 보이는 요소[hero]도 트랜지션이 생략되지 않고 등장한다)
         var toObserve = [];
         // reveal: 숨겼다가 등장. stagger=true 면 형제 순서대로 지연
-        // step: stagger 간격(초). 기본 0.08
+        // step: stagger 간격(초). 기본 0.1 (또렷한 순차 등장)
         function reveal(sel, stagger, step) {
-            var s = step || 0.05;
+            var s = step || 0.1;
             $(sel).each(function (i) {
                 this.classList.add("reveal");
                 if (stagger) this.style.setProperty("--reveal-delay", i * s + "s");
@@ -356,13 +378,14 @@ $(function () {
         reveal(".product-cols .product-col", true);
         // section7
         reveal(".section7 .section-head");
-        reveal(".benefit-grid .benefit-card", true, 0.04); // 더 빠른 stagger
+        reveal(".benefit-grid .benefit-card", true, 0.08); // 약간 빠른 stagger
         // section8
         reveal(".section8 .section-head");
         reveal(".road-label");
         reveal(".roadmap .road-col", true);
-        // CTA
+        // CTA + 푸터(푸터는 cta-box보다 조금 늦게 — 아래 CSS --reveal-delay)
         reveal(".cta-box");
+        reveal(".footer");
 
         // 숨김 상태(opacity:0)를 먼저 강제로 반영(reflow)한 뒤 모두 관찰한다.
         // 모든 요소를 IO로 관찰 → 뷰포트 진입 시 등장, 이탈 시 숨김(재진입 때 재생).

@@ -511,12 +511,16 @@ section > .contents-wrap {
         transform 0.3s ease,
         box-shadow 0.3s ease;
 }
-/* card·benefit-card·smallbox.bluebg 공통 hover: 약간 올라가며 아래 그림자(플로팅 버튼처럼) */
+/* card·benefit-card·smallbox.bluebg 공통 hover: 약간 올라가며 아래 그림자(플로팅 버튼처럼).
+   hover-in transition은 지연 없이(등장 stagger 지연과 분리) 즉시 반응하도록 명시 */
 .card.reveal:hover,
 .benefit-card.reveal:hover,
 .smallbox.bluebg:hover {
     transform: translateY(calc(-6 * var(--u)));
     box-shadow: 0 calc(8 * var(--u)) calc(20 * var(--u)) rgba(0, 0, 0, 0.13);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 .benefit-ico {
     flex: none;
@@ -882,7 +886,7 @@ section > .contents-wrap {
         border-radius: 0;
         min-height: auto;
         /* 위 노치(34u) 아래로 콘텐츠가 너무 붙지 않게 상단 여백 확대 */
-        padding: calc(70 * var(--u)) calc(40 * var(--u)) calc(80 * var(--u));
+        padding: calc(50 * var(--u)) calc(40 * var(--u)) calc(60 * var(--u));
     }
     /* 첫 카드: 위는 평평, 아래만 화살표 */
     .ipo-card:first-child {
@@ -929,7 +933,8 @@ section > .contents-wrap {
         width: 100%;
         clip-path: polygon(0 0, 50% calc(16 * var(--u)), 100% 0, 100% calc(100% - 16 * var(--u)), 50% 100%, 0 calc(100% - 16 * var(--u)));
         border-radius: 0;
-        padding: calc(50 * var(--u)) calc(30 * var(--u)) calc(38 * var(--u));
+        /* padding: calc(50 * var(--u)) calc(30 * var(--u)) calc(38 * var(--u)); */
+        padding: calc(34 * var(--u)) calc(30 * var(--u));
     }
     /* 세로 스택이라 가로 겹침(너비 +20)은 해제 */
     .road-col:not(:last-child) .road-step {
@@ -1059,11 +1064,11 @@ section > .contents-wrap {
     .reveal {
         opacity: 0;
         transform: translateY(22px);
-        /* stagger 지연은 opacity에만(등장 cascade). transform/box-shadow는 지연 없이
-           → hover lift/그림자가 지연 없이 부드럽게 동작 */
+        /* 등장은 opacity·transform 모두 stagger 지연을 받아 순차로 슬라이드+페이드.
+           (hover lift는 .card/.benefit-card :hover 에서 지연 없는 별도 transition으로 즉시 동작) */
         transition:
             opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0s),
-            transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+            transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0s),
             box-shadow 0.3s ease;
         will-change: opacity, transform;
     }
@@ -1071,15 +1076,17 @@ section > .contents-wrap {
         opacity: 1;
         transform: none;
     }
-    /* benefit-card: reveal(opacity/transform)에 background-color도 포함해야 hover 배경색이 부드러움.
-       (.reveal 의 transition 이 .benefit-card 의 transition:all 을 덮어 bg-color가 빠지므로 명시) */
-    /* benefit-card reveal transition에 transform+box-shadow 포함(hover lift/그림자 부드럽게) */
-    .benefit-card.reveal {
+    /* rev-right(테이블)는 rev-left가 먼저 뜬 뒤 살짝 늦게 등장(opacity·transform 모두 지연) */
+    .rev-right.reveal {
         transition:
-            opacity 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0s),
-            transform 0.3s ease,
-            box-shadow 0.3s ease;
+            opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s,
+            transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s;
     }
+    /* 푸터는 cta-box가 뜬 뒤 조금 이따 등장 */
+    .footer.reveal {
+        --reveal-delay: 0.25s;
+    }
+    /* (benefit-card는 위 .reveal transition을 그대로 사용 — 순차 등장 + hover는 :hover에서 처리) */
 
     /* section4 BEFORE→AFTER: before는 왼쪽에서, after는 오른쪽에서 등장.
        위→아래로 쌓여 있어 스크롤하면 before → 화살표(흐름) → after 순서로 보인다.
