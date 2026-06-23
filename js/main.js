@@ -210,6 +210,14 @@ $(function () {
         var dir = e.deltaY > 0 ? 1 : -1;
         if (e.deltaY === 0) return;
 
+        // 미세한 '위로' 휠(마우스 모멘텀·트랙패드 관성·바닥에서의 되튐 등)은 무시한다.
+        // → 바닥(푸터)에서 스크롤을 올리지 않았는데 헤더가 튀어나오거나 의도치 않게
+        //   위로 스냅되는 현상 방지. 분명한 위로 스크롤(한 노치 이상)만 인정.
+        if (dir < 0 && Math.abs(e.deltaY) < 15) {
+            e.preventDefault();
+            return;
+        }
+
         // 헤더 노출/숨김은 휠 의도 시점에 한 번만 결정 (스냅 애니메이션과 분리)
         // 아래로 → 숨김(hero에서 떠날 때 포함), 위로 → 노출
         if (dir > 0) setHeaderHidden(true);
