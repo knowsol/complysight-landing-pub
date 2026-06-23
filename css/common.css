@@ -222,21 +222,12 @@ img {
 /*Start: 배경색 조정 */
 .bluebg {
     background-color: var(--color-primary-500);
-    transition: background 0.3s ease;
-}
-.bluebg:hover {
-    background-color: var(--color-brand);
 }
 .blackbg {
     background-color: var(--color-black);
-    transition: background 0.3s ease;
 }
 .whitebg {
     background-color: var(--color-white);
-    transition: background 0.3s ease;
-}
-.whitebg:hover {
-    background-color: var(--color-gray-300);
 }
 /* //End: 배경색 조정 */
 
@@ -438,9 +429,7 @@ img {
     align-items: center;
     transition: all 0.3s ease;
 }
-.card:hover {
-    background-color: var(--color-gray-300);
-}
+/* .card hover 효과(올라가기+그림자)는 main.css 모션 영역에서 정의 */
 .card-contents {
     margin-top: calc(32 * var(--u));
     display: flex;
@@ -845,13 +834,14 @@ img {
     }
     .card {
         flex-direction: row;
-        padding: calc(24 * var(--u)) calc(16 * var(--u));
+        padding: calc(24 * var(--u));
         align-items: flex-start;
         gap: 16px;
     }
     .card-ico {
-        width: calc(40 * var(--u));
-        height: calc(40 * var(--u));
+        width: calc(25 * var(--u));
+        height: calc(30 * var(--u));
+        margin-top: 6px;
     }
     .card-contents {
         margin-top: 0;

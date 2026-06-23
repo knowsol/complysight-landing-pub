@@ -307,20 +307,8 @@ $(function () {
         var io = new IntersectionObserver(
             function (entries) {
                 entries.forEach(function (en) {
-                    var el = en.target;
-                    // section3: rev-contents(좌우 컬럼 상단) 진입 1회를 기준으로
-                    // product-grid(스태거)·rev-left·rev-right(테이블, CSS에서 지연)를 함께 토글
-                    // → 하단의 product-grid가 테이블보다 먼저 뜬다
-                    if (el.classList.contains("rev-contents")) {
-                        var on = en.isIntersecting;
-                        // rev-right(테이블)는 제외 — 자기 진입 시점에 등장(모바일에서도 지연효과가 보이게)
-                        el.querySelectorAll(".rev-left, .product-grid .product-card").forEach(function (c) {
-                            c.classList.toggle("is-in", on);
-                        });
-                        return;
-                    }
-                    // 그 외: 들어오면 등장, 나가면 숨김 (올렸다 내릴 때도 매번 재생)
-                    el.classList.toggle("is-in", en.isIntersecting);
+                    // 들어오면 등장, 나가면 숨김 (올렸다 내릴 때도 매번 재생)
+                    en.target.classList.toggle("is-in", en.isIntersecting);
                 });
             },
             // 요소가 화면에 충분히 들어온 뒤 재생(미리 시작해 꼬리만 보이는 현상 방지):
@@ -351,15 +339,10 @@ $(function () {
         // section2
         reveal(".section2 .section-head");
         reveal(".cards .card", true);
-        // section3 — rev-contents 진입 기준으로 product-grid(스태거) → 테이블 순서
+        // section3 — rev-left 먼저, rev-right(테이블) 각자 진입 시 등장(특수 지연/스태거 없음)
         reveal(".section3 .section-head");
-        $(".rev-left").addClass("reveal");
-        $(".product-grid .product-card").each(function (i) {
-            this.classList.add("reveal");
-            this.style.setProperty("--reveal-delay", i * 0.04 + "s");
-        });
-        watch(".rev-contents");
-        reveal(".rev-right"); // 테이블: 자기 진입 시 등장(지연 0.7s는 CSS). 모바일에서도 보임
+        reveal(".rev-left");
+        reveal(".rev-right");
         // section4
         reveal(".section4 .section-head");
         reveal(".before");

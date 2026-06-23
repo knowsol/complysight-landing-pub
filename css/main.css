@@ -287,10 +287,9 @@ section > .contents-wrap {
 .smallbox.bluebg {
     background-color: var(--color-primary-500);
     color: var(--color-white);
-    transition: all 0.3s ease;
-}
-.smallbox.bluebg:hover {
-    background-color: var(--color-brand);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 .smallbox-subtit {
     font-family: "Pretendard";
@@ -315,6 +314,10 @@ section > .contents-wrap {
     padding: calc(38 * var(--u)) calc(46 * var(--u)) calc(38 * var(--u)) calc(40 * var(--u));
     color: var(--color-white);
     min-height: calc(330 * var(--u));
+    /* 내용을 세로 중앙 정렬 → min-height로 남는 공간이 위아래 동일하게 분배 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     clip-path: polygon(0 0, calc(100% - 34 * var(--u)) 0, 100% 50%, calc(100% - 34 * var(--u)) 100%, 0 100%, calc(34 * var(--u)) 50%);
 }
 .ipo-card:first-child {
@@ -348,6 +351,7 @@ section > .contents-wrap {
     font-weight: 400;
     line-height: 1.6;
     margin-bottom: calc(13 * var(--u));
+    gap: calc(12 * var(--u));
     display: flex;
     align-items: center;
 }
@@ -358,26 +362,13 @@ section > .contents-wrap {
     line-height: 1;
     font-weight: 700;
     padding: calc(8 * var(--u)) calc(16 * var(--u));
-    /* 왼쪽만 둥글게, 오른쪽은 화살표가 붙으므로 직각 */
-    border-radius: calc(6 * var(--u)) 0 0 calc(6 * var(--u));
+    border-radius: calc(6 * var(--u));
     letter-spacing: calc(-0.32 * var(--u));
 }
-/* 오른쪽 화살표(태그 모양) — 배경색은 각 변형(.dark/.green/.blue 등)에서 상속 */
-.ipo-pill::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    /* 1px 겹쳐 본체와 완전히 붙게(서브픽셀 틈 제거) */
-    left: calc(100% - 1px);
-    width: calc(14 * var(--u));
-    height: 100%;
-    background: inherit;
-    clip-path: polygon(0 0, 100% 50%, 0 100%);
-}
+
 .ipo-pill.dark {
     background: var(--color-black);
     color: var(--color-white);
-    margin-right: 24px;
     font-size: calc(16 * var(--u));
 }
 
@@ -516,10 +507,16 @@ section > .contents-wrap {
     align-items: flex-start;
     border-radius: calc(8 * var(--u));
     padding: calc(40 * var(--u)) calc(50 * var(--u));
-    transition: all 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
-.benefit-card.bluebg:hover {
-    background-color: var(--color-brand);
+/* card·benefit-card·smallbox.bluebg 공통 hover: 약간 올라가며 아래 그림자(플로팅 버튼처럼) */
+.card.reveal:hover,
+.benefit-card.reveal:hover,
+.smallbox.bluebg:hover {
+    transform: translateY(calc(-6 * var(--u)));
+    box-shadow: 0 calc(8 * var(--u)) calc(20 * var(--u)) rgba(0, 0, 0, 0.13);
 }
 .benefit-ico {
     flex: none;
@@ -712,7 +709,7 @@ section > .contents-wrap {
         padding-left: 0;
         align-self: flex-start;
         margin-top: calc(40 * var(--u));
-        margin-bottom: 9vh;
+        margin-bottom: 10vh;
         margin-left: 40%;
     }
     .visual-point {
@@ -778,10 +775,10 @@ section > .contents-wrap {
         margin-top: 8px;
     }
     .ipo-card {
-        padding: calc(24 * var(--u)) calc(36 * var(--u)) calc(24 * var(--u)) calc(28 * var(--u));
+        padding: calc(24 * var(--u)) calc(40 * var(--u)) calc(32 * var(--u));
     }
     .ipo-card:not(:first-child) {
-        padding-left: calc(58 * var(--u));
+        padding-left: calc(40 * var(--u));
     }
     .ipo-head {
         font-size: var(--font-small);
@@ -805,7 +802,7 @@ section > .contents-wrap {
 
     .ipo-pill {
         font-size: var(--font-small);
-        padding: calc(5 * var(--u)) calc(16 * var(--u));
+        padding: calc(6 * var(--u)) calc(16 * var(--u));
     }
     .ipo-pill.dark {
         font-size: var(--font-small);
@@ -822,7 +819,7 @@ section > .contents-wrap {
         height: calc(236 * var(--u));
     }
     .benefit-card {
-        padding: calc(30 * var(--u)) calc(20 * var(--u));
+        padding: calc(30 * var(--u));
     }
     .road-col .check-list {
         padding: 0 calc(10 * var(--u));
@@ -885,23 +882,19 @@ section > .contents-wrap {
         border-radius: 0;
         min-height: auto;
         /* 위 노치(34u) 아래로 콘텐츠가 너무 붙지 않게 상단 여백 확대 */
-        padding: calc(60 * var(--u)) calc(30 * var(--u)) calc(52 * var(--u));
-    }
-    .ipo-card:not(:first-child) {
-        padding-left: calc(30 * var(--u));
+        padding: calc(70 * var(--u)) calc(40 * var(--u)) calc(80 * var(--u));
     }
     /* 첫 카드: 위는 평평, 아래만 화살표 */
     .ipo-card:first-child {
         clip-path: polygon(0 0, 100% 0, 100% calc(100% - 34 * var(--u)), 50% 100%, 0 calc(100% - 34 * var(--u)));
         border-radius: calc(14 * var(--u)) calc(14 * var(--u)) 0 0;
-        padding-top: calc(30 * var(--u));
     }
     /* 마지막 카드: 위는 홈, 아래는 평평 */
     .ipo-output {
         clip-path: polygon(0 0, 50% calc(34 * var(--u)), 100% 0, 100% 100%, 0 100%);
         border-radius: 0 0 calc(14 * var(--u)) calc(14 * var(--u));
         margin-bottom: 0;
-        padding-bottom: calc(30 * var(--u));
+        /* padding-bottom: calc(30 * var(--u)); */
     }
     .ipo-list,
     .benefit-grid,
@@ -936,7 +929,7 @@ section > .contents-wrap {
         width: 100%;
         clip-path: polygon(0 0, 50% calc(16 * var(--u)), 100% 0, 100% calc(100% - 16 * var(--u)), 50% 100%, 0 calc(100% - 16 * var(--u)));
         border-radius: 0;
-        padding: calc(34 * var(--u)) calc(30 * var(--u));
+        padding: calc(50 * var(--u)) calc(30 * var(--u)) calc(38 * var(--u));
     }
     /* 세로 스택이라 가로 겹침(너비 +20)은 해제 */
     .road-col:not(:last-child) .road-step {
@@ -1066,10 +1059,12 @@ section > .contents-wrap {
     .reveal {
         opacity: 0;
         transform: translateY(22px);
+        /* stagger 지연은 opacity에만(등장 cascade). transform/box-shadow는 지연 없이
+           → hover lift/그림자가 지연 없이 부드럽게 동작 */
         transition:
-            opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
-            transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
-        transition-delay: var(--reveal-delay, 0s);
+            opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0s),
+            transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+            box-shadow 0.3s ease;
         will-change: opacity, transform;
     }
     .reveal.is-in {
@@ -1078,18 +1073,12 @@ section > .contents-wrap {
     }
     /* benefit-card: reveal(opacity/transform)에 background-color도 포함해야 hover 배경색이 부드러움.
        (.reveal 의 transition 이 .benefit-card 의 transition:all 을 덮어 bg-color가 빠지므로 명시) */
+    /* benefit-card reveal transition에 transform+box-shadow 포함(hover lift/그림자 부드럽게) */
     .benefit-card.reveal {
         transition:
             opacity 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0s),
-            transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0s),
-            background-color 0.3s ease;
-    }
-    /* product-grid는 더 빠르게(짧은 duration), 테이블(rev-right)은 더 늦게(지연 0.7s) */
-    .product-grid .product-card.reveal {
-        transition-duration: 0.3s;
-    }
-    .rev-right.reveal {
-        transition-delay: 0.7s;
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
     }
 
     /* section4 BEFORE→AFTER: before는 왼쪽에서, after는 오른쪽에서 등장.
@@ -1282,12 +1271,7 @@ section > .contents-wrap {
     /* 테두리가 그려지며 한 바퀴 도는 효과: 얇은 투명 머리(그리는 끝) 뒤로
        #005cb9 → #002953 진한 파랑 그라디언트가 채워진다(옅은 색 구간 최소화) */
     .float-diagnose::before {
-        background: conic-gradient(
-            from var(--fd-angle),
-            transparent 0deg,
-            var(--color-primary-500) 28deg,
-            #002953 360deg
-        );
+        background: conic-gradient(from var(--fd-angle), transparent 0deg, var(--color-primary-500) 28deg, #002953 360deg);
         animation: fdBorderSpin 3s linear infinite;
     }
 }
