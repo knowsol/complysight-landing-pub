@@ -43,12 +43,18 @@ $(function () {
             return;
         }
 
+        // 페이지 맨 아래(footer/CTA)에 거의 닿아 있으면 헤더를 토글하지 않는다.
+        // 바닥에서 브라우저 스크롤 보정(스크롤 앵커링)·관성 등으로 y가 살짝 줄어
+        // "올린 적 없는데" 헤더가 노출되는 현상 방지.
+        var atBottom = docH() - (y + viewH()) <= 40;
         if (y <= 0) {
             setHeaderHidden(false);
-        } else if (y > lastHeaderY + 4) {
-            setHeaderHidden(true); // 내릴 때 숨김
-        } else if (y < lastHeaderY - 4) {
-            setHeaderHidden(false); // 올릴 때 노출
+        } else if (!atBottom) {
+            if (y > lastHeaderY + 4) {
+                setHeaderHidden(true); // 내릴 때 숨김
+            } else if (y < lastHeaderY - 4) {
+                setHeaderHidden(false); // 올릴 때 노출
+            }
         }
         lastHeaderY = y;
     }
