@@ -77,11 +77,12 @@
     --color-red: #c01639;
     --color-yellow: #f5c946;
     --color-lightgreen: #31f595;
-    --color-green: #25ada3;
-    --color-sky: #e0edfb;
+    --color-green: #1ea965;
+    --color-sky: #e7ecf0;
     --color-brand: #004286;
 
     /* Neutral */
+    --color-gray-300: #f6f6f6;
     --color-gray-500: #dddddd;
     --color-gray-600: #929292;
     --color-gray-700: #666666;
@@ -221,9 +222,21 @@ img {
 /*Start: 배경색 조정 */
 .bluebg {
     background-color: var(--color-primary-500);
+    transition: background 0.3s ease;
+}
+.bluebg:hover {
+    background-color: var(--color-brand);
 }
 .blackbg {
     background-color: var(--color-black);
+    transition: background 0.3s ease;
+}
+.whitebg {
+    background-color: var(--color-white);
+    transition: background 0.3s ease;
+}
+.whitebg:hover {
+    background-color: var(--color-gray-300);
 }
 /* //End: 배경색 조정 */
 
@@ -265,8 +278,7 @@ img {
     background-color: var(--color-brand);
 }
 .btn.blackbg:hover {
-    /* 검정→검정은 변화가 안 보이므로 살짝 밝은 톤으로(자연스럽지만 호버가 보이게) */
-    background-color: #3d3d3d;
+    background-color: var(--color-gray-800);
 }
 .lg-block {
     display: block;
@@ -357,6 +369,11 @@ img {
 .header.hide {
     transform: translateY(-100%);
 }
+/* 메뉴 열림 시 헤더 transform 제거 → 헤더가 fixed 컨테이닝 블록이 되어
+   내부 menuPop이 위로 밀려 하단이 비던 문제 해결(뷰포트 전체를 덮음) */
+.header.nav-open {
+    transform: none !important;
+}
 /* 어두운(네이비) 섹션 위에서는 로고·메뉴를 흰색으로 반전해 가독성 유지 */
 .header.on-dark .gnb-menu {
     color: var(--color-white);
@@ -380,6 +397,8 @@ img {
 /*//헤더 효과 */
 .menuPop {
     display: none;
+    /* 전체 영역 무조건 흰 배경(내용/백드롭이 비치지 않게) */
+    background-color: var(--color-white);
 }
 .contents-top {
     display: flex;
@@ -417,6 +436,10 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all 0.3s ease;
+}
+.card:hover {
+    background-color: var(--color-gray-300);
 }
 .card-contents {
     margin-top: calc(32 * var(--u));
@@ -454,12 +477,13 @@ img {
 .layerPop {
     display: none;
     width: 100%;
-    height: 100svh;
+    height: 100dvh;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 100;
+    overflow-y: auto;
 }
 .layerbg {
     position: absolute;
@@ -482,7 +506,7 @@ img {
     position: relative;
     z-index: 101;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     padding: 36px 20px;
     background-color: var(--color-white);
 }
@@ -526,13 +550,7 @@ img {
 .menu-tit:hover {
     color: var(--color-primary-500);
 }
-/* .layerPop-maintit {
-    font-size: var(--font-large);
-    font-weight: 600;
-    line-height: 32px;
-    letter-spacing: -0.48px;
-    color: var(--color-black);
-} */
+
 .popbottomBtn {
     margin-left: auto;
 }
@@ -602,7 +620,6 @@ img {
     font-weight: 600;
 }
 .table td.title {
-    /* 가로 스크롤 시 첫 열(분야) 좌측 고정 */
     position: sticky;
     left: 0;
     z-index: 2;
@@ -657,7 +674,7 @@ img {
     line-height: 160%;
     font-family: "Pretendard";
     letter-spacing: calc(0.32 * var(--u));
-    color: #000;
+    color: var(--color-black);
 }
 .footer-desc {
     font-size: var(--font-primary);
@@ -696,7 +713,6 @@ img {
     /* 햄버거 메뉴 */
     .btn-hamburger {
         position: relative;
-        /* 메뉴 패널(.layerPop z-index:100) 위로 떠서 같은 버튼이 ≡↔X로 모핑 */
         z-index: 130;
         width: 28px;
         height: 18px;
@@ -778,6 +794,11 @@ img {
     }
     .header.solid > .contents-wrap {
         margin: 16px 0;
+    }
+    /* 메뉴 열림 시엔 solid의 16px 마진을 쓰지 않고 비-solid와 동일(30u)로 →
+       떠 있는 X 버튼 위치가 menuPop 로고와 같은 높이로 맞음 */
+    .header.nav-open > .contents-wrap {
+        margin: calc(30 * var(--u)) auto;
     }
     .header.solid .logo-svg {
         color: var(--color-black);

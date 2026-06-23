@@ -303,16 +303,29 @@ $(function () {
     var prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if ("IntersectionObserver" in window && !prefersReduced) {
+        var heroShown = false; // section1 첫 등장 여부
         var io = new IntersectionObserver(
             function (entries) {
                 entries.forEach(function (en) {
-                    // 들어오면 등장, 나가면 다시 숨김 → 올렸다 내릴 때도 매번 재생
-                    en.target.classList.toggle("is-in", en.isIntersecting);
+                    var el = en.target;
+                    // section3: rev-contents(좌우 컬럼 상단) 진입 1회를 기준으로
+                    // product-grid(스태거)·rev-left·rev-right(테이블, CSS에서 지연)를 함께 토글
+                    // → 하단의 product-grid가 테이블보다 먼저 뜬다
+                    if (el.classList.contains("rev-contents")) {
+                        var on = en.isIntersecting;
+                        // rev-right(테이블)는 제외 — 자기 진입 시점에 등장(모바일에서도 지연효과가 보이게)
+                        el.querySelectorAll(".rev-left, .product-grid .product-card").forEach(function (c) {
+                            c.classList.toggle("is-in", on);
+                        });
+                        return;
+                    }
+                    // 그 외: 들어오면 등장, 나가면 숨김 (올렸다 내릴 때도 매번 재생)
+                    el.classList.toggle("is-in", en.isIntersecting);
                 });
             },
             // 요소가 화면에 충분히 들어온 뒤 재생(미리 시작해 꼬리만 보이는 현상 방지):
-            // 뷰포트 하단에서 10% 안쪽으로 들어왔을 때 트리거
-            { threshold: 0, rootMargin: "0px 0px -10% 0px" },
+            // 뷰포트 하단에서 18% 안쪽으로 들어왔을 때 트리거(전체적으로 조금 더 늦게 등장)
+            { threshold: 0, rootMargin: "0px 0px -18% 0px" },
         );
 
         // 관찰 대상을 모은 뒤, 숨김 상태가 paint된 다음 한꺼번에 관찰을 시작한다.
@@ -335,16 +348,18 @@ $(function () {
             });
         }
 
-        // section1 (hero) — 진입 시 CSS keyframe 재생(맨 위로 재진입 때마다 재생)
-        watch(".section1");
         // section2
         reveal(".section2 .section-head");
         reveal(".cards .card", true);
-        // section3
+        // section3 — rev-contents 진입 기준으로 product-grid(스태거) → 테이블 순서
         reveal(".section3 .section-head");
-        reveal(".rev-left");
-        reveal(".rev-right");
-        reveal(".product-grid .product-card", true);
+        $(".rev-left").addClass("reveal");
+        $(".product-grid .product-card").each(function (i) {
+            this.classList.add("reveal");
+            this.style.setProperty("--reveal-delay", i * 0.04 + "s");
+        });
+        watch(".rev-contents");
+        reveal(".rev-right"); // 테이블: 자기 진입 시 등장(지연 0.7s는 CSS). 모바일에서도 보임
         // section4
         reveal(".section4 .section-head");
         reveal(".before");
@@ -377,6 +392,30 @@ $(function () {
                 });
             });
         });
+
+        // section1(hero): 별도 옵저버 + 임계값으로 진입/이탈을 확실히 감지(닿기 경계 모호성 제거)
+        // → section2↔section1 오갈 때마다 매번 재생. 재진입 시 reflow로 애니메이션 재시작.
+        var $section1 = $(".section1");
+        if ($section1.length) {
+            var heroIO = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (en) {
+                        var el = en.target;
+                        if (en.isIntersecting) {
+                            el.classList.remove("is-in");
+                            void el.offsetWidth; // reflow → 애니메이션 리셋
+                            if (heroShown) el.style.setProperty("--hero-extra", "0.4s");
+                            heroShown = true;
+                            el.classList.add("is-in");
+                        } else {
+                            el.classList.remove("is-in");
+                        }
+                    });
+                },
+                { threshold: 0.12 },
+            );
+            heroIO.observe($section1[0]);
+        }
     }
 });
 

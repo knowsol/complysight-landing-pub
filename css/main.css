@@ -106,7 +106,7 @@ section > .contents-wrap {
 
 /**************************Start:section2 ***************************/
 .section2 {
-    background-color: #e7ecf0;
+    background-color: var(--color-sky);
 }
 .section-head {
     display: flex;
@@ -287,6 +287,10 @@ section > .contents-wrap {
 .smallbox.bluebg {
     background-color: var(--color-primary-500);
     color: var(--color-white);
+    transition: all 0.3s ease;
+}
+.smallbox.bluebg:hover {
+    background-color: var(--color-brand);
 }
 .smallbox-subtit {
     font-family: "Pretendard";
@@ -298,7 +302,7 @@ section > .contents-wrap {
 
 /**************************Start:section5 ***************************/
 .section5 {
-    background-color: #e7ecf0;
+    background-color: var(--color-sky);
 }
 .ipo-flow {
     display: grid;
@@ -309,7 +313,7 @@ section > .contents-wrap {
 .ipo-card {
     position: relative;
     padding: calc(38 * var(--u)) calc(46 * var(--u)) calc(38 * var(--u)) calc(40 * var(--u));
-    color: #fff;
+    color: var(--color-white);
     min-height: calc(330 * var(--u));
     clip-path: polygon(0 0, calc(100% - 34 * var(--u)) 0, 100% 50%, calc(100% - 34 * var(--u)) 100%, 0 100%, calc(34 * var(--u)) 50%);
 }
@@ -322,12 +326,12 @@ section > .contents-wrap {
     padding-left: calc(70 * var(--u));
 }
 .ipo-input {
-    background: #6ba0d6;
+    background: var(--color-primary-200);
     margin-right: calc(-18 * var(--u));
     z-index: 1;
 }
 .ipo-process {
-    background: #3d7fc4;
+    background: var(--color-primary-300);
     margin-right: calc(-18 * var(--u));
     z-index: 2;
 }
@@ -346,33 +350,53 @@ section > .contents-wrap {
     margin-bottom: calc(13 * var(--u));
     display: flex;
     align-items: center;
-    gap: calc(10 * var(--u));
 }
 .ipo-pill {
+    position: relative;
     display: inline-block;
-    font-size: calc(16 * var(--u));
-    line-height: 1.8;
+    font-size: var(--font-primary);
+    line-height: 1;
     font-weight: 700;
     padding: calc(8 * var(--u)) calc(16 * var(--u));
-    border-radius: calc(6 * var(--u));
-    /* clip-path: polygon(0 0, calc(100% - 9 * var(--u)) 0, 100% 46%, 100% 54%, calc(100% - 9 * var(--u)) 100%, 0 100%); */
+    /* 왼쪽만 둥글게, 오른쪽은 화살표가 붙으므로 직각 */
+    border-radius: calc(6 * var(--u)) 0 0 calc(6 * var(--u));
     letter-spacing: calc(-0.32 * var(--u));
 }
+/* 오른쪽 화살표(태그 모양) — 배경색은 각 변형(.dark/.green/.blue 등)에서 상속 */
+.ipo-pill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    /* 1px 겹쳐 본체와 완전히 붙게(서브픽셀 틈 제거) */
+    left: calc(100% - 1px);
+    width: calc(14 * var(--u));
+    height: 100%;
+    background: inherit;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
 .ipo-pill.dark {
-    background: #1c2738;
-    color: #fff;
+    background: var(--color-black);
+    color: var(--color-white);
+    margin-right: 24px;
+    font-size: calc(16 * var(--u));
 }
-.ipo-pill.darker {
-    background: #11151c;
-    color: #fff;
-}
+
 .ipo-pill.green {
-    background: #16a06a;
-    color: #fff;
+    background: var(--color-green);
+    color: var(--color-white);
 }
 .ipo-pill.blue {
     background: var(--color-primary-500);
-    color: #fff;
+    color: var(--color-white);
+}
+/* green·blue(SENTINEL·MANAGER)는 화살표 없이 전체 둥근 pill */
+.ipo-pill.green::after,
+.ipo-pill.blue::after {
+    display: none;
+}
+.ipo-pill.green,
+.ipo-pill.blue {
+    border-radius: calc(6 * var(--u));
 }
 .ipo-card h3 {
     font-size: calc(28 * var(--u));
@@ -420,7 +444,7 @@ section > .contents-wrap {
     display: flex;
     align-items: center;
     gap: calc(10 * var(--u));
-    color: #3a4250;
+    color: var(--color-black);
 }
 .product-shot {
     margin-bottom: calc(30 * var(--u));
@@ -469,7 +493,7 @@ section > .contents-wrap {
     background-image: url("../assets/icons/chk-2.svg");
 }
 .sentinel-txt {
-    color: #1ea965;
+    color: var(--color-green);
 }
 .manager-txt {
     color: var(--color-primary-500);
@@ -490,12 +514,12 @@ section > .contents-wrap {
     display: flex;
     gap: calc(18 * var(--u));
     align-items: flex-start;
-    background: var(--color-white);
     border-radius: calc(8 * var(--u));
     padding: calc(40 * var(--u)) calc(50 * var(--u));
+    transition: all 0.3s ease;
 }
-.benefit-card.highlight {
-    background: var(--color-primary-500);
+.benefit-card.bluebg:hover {
+    background-color: var(--color-brand);
 }
 .benefit-ico {
     flex: none;
@@ -519,10 +543,10 @@ section > .contents-wrap {
     color: var(--color-black);
     line-height: 1.55;
 }
-.benefit-card.highlight h3 {
+.benefit-card.bluebg h3 {
     color: var(--color-white);
 }
-.benefit-card.highlight p {
+.benefit-card.bluebg p {
     color: rgba(255, 255, 255, 0.88);
 }
 
@@ -531,7 +555,7 @@ section > .contents-wrap {
 /**************************Start:section8***************************/
 
 .road-label {
-    font-size: calc(24 * var(--u));
+    font-size: var(--font-large);
     line-height: 1.3;
     font-weight: 700;
     margin-top: calc(72 * var(--u));
@@ -610,7 +634,7 @@ section > .contents-wrap {
 
 /*------------------------------ //섹션별------------------------------*/
 .cta-box {
-    background-color: #e7ecf0;
+    background-color: var(--color-sky);
     padding: calc(120 * var(--u)) calc(188 * var(--u));
     display: flex;
     flex-direction: column;
@@ -622,7 +646,7 @@ section > .contents-wrap {
     gap: calc(16 * var(--u));
 }
 .btn.cta {
-    padding: calc(20 * var(--u)) calc(40 * var(--u));
+    padding: calc(14 * var(--u)) calc(40 * var(--u));
     font-size: var(--font-medium);
     font-weight: 500;
     font-family: "Pretendard";
@@ -656,7 +680,7 @@ section > .contents-wrap {
     }
 
     .section-tit {
-        font-size: calc(24 * var(--u));
+        font-size: var(--font-large);
         line-height: 1.3;
     }
     .section-subtit {
@@ -746,7 +770,7 @@ section > .contents-wrap {
         padding: calc(20 * var(--u)) calc(30 * var(--u));
     }
     .smallbox.bluebg {
-        font-size: 16px;
+        font-size: calc(16 * var(--u));
     }
     .before span,
     .after span {
@@ -760,10 +784,10 @@ section > .contents-wrap {
         padding-left: calc(58 * var(--u));
     }
     .ipo-head {
-        font-size: calc(14 * var(--u));
+        font-size: var(--font-small);
     }
     .ipo-card h3 {
-        font-size: calc(24 * var(--u));
+        font-size: var(--font-large);
         margin-bottom: calc(20 * var(--u));
     }
 
@@ -780,8 +804,11 @@ section > .contents-wrap {
     }
 
     .ipo-pill {
-        font-size: calc(14 * var(--u));
-        padding: calc(2 * var(--u)) calc(16 * var(--u));
+        font-size: var(--font-small);
+        padding: calc(5 * var(--u)) calc(16 * var(--u));
+    }
+    .ipo-pill.dark {
+        font-size: var(--font-small);
     }
     .product-tag {
         font-size: calc(var(--font-primary) * var(--u));
@@ -970,7 +997,7 @@ section > .contents-wrap {
     width: calc(4 * var(--u));
     height: calc(4 * var(--u));
     border-radius: 50%;
-    background-color: #c01639;
+    background-color: var(--color-red);
     transform: translateX(-50%);
 }
 
@@ -1001,16 +1028,16 @@ section > .contents-wrap {
         transform: translate(-50%, 0);
     }
     .auto-emph i:nth-of-type(1)::before {
-        --dot-delay: 0.05s;
+        --dot-delay: 0.6s;
     }
     .auto-emph i:nth-of-type(2)::before {
-        --dot-delay: 0.15s;
+        --dot-delay: 0.7s;
     }
     .auto-emph i:nth-of-type(3)::before {
-        --dot-delay: 0.25s;
+        --dot-delay: 0.8s;
     }
     .auto-emph i:nth-of-type(4)::before {
-        --dot-delay: 0.35s;
+        --dot-delay: 0.9s;
     }
 
     /* ---- 2) 화살표: 화살표가 화면에 들어올 때 위→아래로 파란색이 흐른다 ---- */
@@ -1049,9 +1076,20 @@ section > .contents-wrap {
         opacity: 1;
         transform: none;
     }
-    /* benefit-card 는 더 빠르게 */
+    /* benefit-card: reveal(opacity/transform)에 background-color도 포함해야 hover 배경색이 부드러움.
+       (.reveal 의 transition 이 .benefit-card 의 transition:all 을 덮어 bg-color가 빠지므로 명시) */
     .benefit-card.reveal {
-        transition-duration: 0.35s;
+        transition:
+            opacity 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0s),
+            transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0s),
+            background-color 0.3s ease;
+    }
+    /* product-grid는 더 빠르게(짧은 duration), 테이블(rev-right)은 더 늦게(지연 0.7s) */
+    .product-grid .product-card.reveal {
+        transition-duration: 0.3s;
+    }
+    .rev-right.reveal {
+        transition-delay: 0.7s;
     }
 
     /* section4 BEFORE→AFTER: before는 왼쪽에서, after는 오른쪽에서 등장.
@@ -1086,28 +1124,29 @@ section > .contents-wrap {
     .section1.is-in .visual-image {
         animation: heroIn 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
     }
+    /* 첫 등장은 --hero-extra=0s, 재등장부터 JS가 --hero-extra를 줘 시작이 더 늦어짐 */
     .section1.is-in .visual-subtit {
-        animation-delay: 0.1s;
+        animation-delay: calc(var(--hero-extra, 0s) + 0.1s);
     }
     .section1.is-in .visual-tit {
-        animation-delay: 0.22s;
+        animation-delay: calc(var(--hero-extra, 0s) + 0.22s);
     }
     .section1.is-in .visual-middle {
-        animation-delay: 0.36s;
+        animation-delay: calc(var(--hero-extra, 0s) + 0.36s);
     }
     .section1.is-in .visual-point:nth-child(1) {
-        animation-delay: 0.5s;
+        animation-delay: calc(var(--hero-extra, 0s) + 0.5s);
     }
     .section1.is-in .visual-point:nth-child(2) {
-        animation-delay: 0.6s;
+        animation-delay: calc(var(--hero-extra, 0s) + 0.6s);
     }
     .section1.is-in .visual-point:nth-child(3) {
-        animation-delay: 0.7s;
+        animation-delay: calc(var(--hero-extra, 0s) + 0.7s);
     }
     .section1.is-in .visual-image {
         animation-name: heroImg;
         animation-duration: 0.9s;
-        animation-delay: 0.3s;
+        animation-delay: calc(var(--hero-extra, 0s) + 0.3s);
     }
     @keyframes heroIn {
         from {
@@ -1134,6 +1173,12 @@ section > .contents-wrap {
 
 /**************************Start:플로팅 진단 버튼 ***************************/
 /* 공통: 흰 배경 + 파란 그라디언트 보더(둥근 모서리를 따라감).*/
+/* 테두리를 그리며 도는 효과용 각도(@property라 애니메이션 가능) */
+@property --fd-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
 .float-diagnose {
     position: fixed;
     z-index: 90;
@@ -1145,19 +1190,41 @@ section > .contents-wrap {
     align-items: center;
     gap: calc(8 * var(--u));
     padding: calc(16 * var(--u)) calc(32 * var(--u));
+    /* 투명 보더 + padding-box 클립 → 흰 배경이 테두리(링) 안쪽까지만 채워지고
+       바깥(테두리 영역)으로 넘치지 않음 */
     border: calc(4 * var(--u)) solid transparent;
+    background-clip: padding-box;
     border-radius: 100px;
-    background:
-        linear-gradient(#fff, #fff) padding-box,
-        linear-gradient(135deg, #005cb9 0%, #002953 100%) border-box;
+    background-color: var(--color-white);
     white-space: nowrap;
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+/* 테두리(링): ::before에 conic-gradient를 마스크로 테두리 영역만 그림.
+   기본(모션 비선호)은 솔리드 파랑 테두리, 모션 허용 시 머리→꼬리가 도는 "그려지는" 테두리 */
+.float-diagnose::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: calc(4 * var(--u));
+    /* 기본(모션 비선호): #005cb9 → #002953 진한 파랑 테두리 */
+    background: linear-gradient(135deg, var(--color-primary-500), #002953);
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
 }
 .float-diagnose:hover {
-    /* 위치 보정 translate(-3%,-4%)는 유지하고 위로만 이동(합성). 전체를 덮어쓰면 X가 0이 돼 오른쪽으로 튐 */
-    transform: translate(-3%, -4%) translateY(calc(-3 * var(--u)));
+    /* 위치 보정 유지 + 조금 더 위로 + 아래쪽에 옅은 그림자 */
+    transform: translate(-3%, -4%) translateY(calc(-10 * var(--u)));
+    box-shadow: 0 calc(10 * var(--u)) calc(22 * var(--u)) rgba(0, 0, 0, 0.18);
 }
 .float-diagnose-ico {
     width: calc(22 * var(--u));
@@ -1183,7 +1250,7 @@ section > .contents-wrap {
         bottom: 2%;
         transform: translate(-3%, -2%);
         gap: 12px;
-        padding: 16px 24px;
+        padding: 10px 24px;
         text-align: left;
         white-space: nowrap;
     }
@@ -1210,7 +1277,18 @@ section > .contents-wrap {
 @media (prefers-reduced-motion: no-preference) {
     .float-diagnose {
         opacity: 0;
-        animation: floatIn 0.4s ease 0.8s both;
+        animation: floatIn 0.4s ease 0.8s both; /* 등장 1회 */
+    }
+    /* 테두리가 그려지며 한 바퀴 도는 효과: 얇은 투명 머리(그리는 끝) 뒤로
+       #005cb9 → #002953 진한 파랑 그라디언트가 채워진다(옅은 색 구간 최소화) */
+    .float-diagnose::before {
+        background: conic-gradient(
+            from var(--fd-angle),
+            transparent 0deg,
+            var(--color-primary-500) 28deg,
+            #002953 360deg
+        );
+        animation: fdBorderSpin 3s linear infinite;
     }
 }
 @keyframes floatIn {
@@ -1219,6 +1297,12 @@ section > .contents-wrap {
     }
     to {
         opacity: 1;
+    }
+}
+/* 0deg → 360deg 한 바퀴, 끝과 시작이 같아 끊김 없이 반복 */
+@keyframes fdBorderSpin {
+    to {
+        --fd-angle: 360deg;
     }
 }
 /************************** //End:플로팅 진단 버튼 ***************************/
