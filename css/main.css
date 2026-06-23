@@ -755,7 +755,7 @@ section > .contents-wrap {
     .rev-right {
         width: 100%;
     }
-    /* //section3 */
+
     .product-grid {
         grid-template-columns: repeat(auto-fit, minmax(149px, 1fr));
         gap: 4px;
@@ -763,7 +763,9 @@ section > .contents-wrap {
     .product-label {
         margin-top: calc(40 * var(--u));
     }
+    /* //section3 */
 
+    /* section4 */
     .maintit {
         font-size: calc(28 * var(--u));
     }
@@ -795,6 +797,9 @@ section > .contents-wrap {
         display: block;
         margin-top: 8px;
     }
+    /* //section4 */
+
+    /* section5 */
     .ipo-card {
         padding: calc(24 * var(--u)) calc(40 * var(--u)) calc(32 * var(--u));
     }
@@ -829,6 +834,9 @@ section > .contents-wrap {
     .ipo-pill.dark {
         font-size: var(--font-small);
     }
+    /* //section5 */
+
+    /* section6 */
     .product-tag {
         font-size: calc(var(--font-primary) * var(--u));
     }
@@ -840,9 +848,15 @@ section > .contents-wrap {
     .product-shot {
         height: calc(236 * var(--u));
     }
+    /* //section6 */
+
+    /* section7 */
     .benefit-card {
         padding: calc(30 * var(--u));
     }
+    /* //section7 */
+
+    /* section8 */
     .road-col .check-list {
         padding: 0 calc(10 * var(--u));
     }
@@ -856,6 +870,9 @@ section > .contents-wrap {
     .road-col .check-list li {
         font-size: var(--font-small);
     }
+    /* // section8 */
+
+    /* cta-box */
     .cta-box {
         padding: 50px;
     }
@@ -868,6 +885,7 @@ section > .contents-wrap {
         letter-spacing: -0.32px;
         white-space: nowrap;
     }
+    /* //cta-box */
 }
 @media screen and (max-width: 768px) {
     /* section1 */
@@ -891,19 +909,18 @@ section > .contents-wrap {
         grid-template-columns: repeat(2, 1fr);
     }
     /* //section4 */
+
     /* section5 */
     .ipo-flow {
         grid-template-columns: 1fr;
         gap: 0;
     }
     .ipo-card {
-        /* 위: 가운데 홈(노치) / 아래: 가운데 화살표(아래로 향함) */
         clip-path: polygon(0 0, 50% calc(34 * var(--u)), 100% 0, 100% calc(100% - 34 * var(--u)), 50% 100%, 0 calc(100% - 34 * var(--u)));
         margin-right: 0;
         margin-bottom: calc(-18 * var(--u));
         border-radius: 0;
         min-height: auto;
-        /* 위 노치(34u) 아래로 콘텐츠가 너무 붙지 않게 상단 여백 확대 */
         padding: calc(50 * var(--u)) calc(40 * var(--u)) calc(60 * var(--u));
     }
     /* 첫 카드: 위는 평평, 아래만 화살표 */
@@ -929,9 +946,9 @@ section > .contents-wrap {
     .product-cols {
         grid-template-columns: 1fr;
     }
-    .roadmap {
-        margin-bottom: 0;
-    }
+    /* //section5 */
+
+    /* section6 */
     .product-tag {
         margin-bottom: 16px;
     }
@@ -941,12 +958,18 @@ section > .contents-wrap {
     .product-shot {
         height: auto;
     }
-    /* //section5 */
+    /* //section6 */
 
+    /* section7 */
     .benefit-card p {
         font-size: var(--font-small);
     }
-    /* section8: road-step 화살표 (깊이 16으로 덜 뾰족하게 + 상하 대칭 패딩으로 가운데 정렬) */
+    /* //section7 */
+
+    /* section8 */
+    .roadmap {
+        margin-bottom: 0;
+    }
     .road-label {
         font-size: 17px;
         margin-top: 32px;
@@ -955,7 +978,6 @@ section > .contents-wrap {
         width: 100%;
         clip-path: polygon(0 0, 50% calc(16 * var(--u)), 100% 0, 100% calc(100% - 16 * var(--u)), 50% 100%, 0 calc(100% - 16 * var(--u)));
         border-radius: 0;
-        /* padding: calc(50 * var(--u)) calc(30 * var(--u)) calc(38 * var(--u)); */
         padding: calc(34 * var(--u)) calc(30 * var(--u));
     }
     /* 세로 스택이라 가로 겹침(너비 +20)은 해제 */
@@ -982,7 +1004,7 @@ section > .contents-wrap {
     .check-list li::before {
         top: calc(6 * var(--u));
     }
-    /* //section8: road-step화살표*/
+    /* //section8*/
 }
 
 /**************************Start:motion (등장 효과) ***************************/

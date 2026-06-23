@@ -819,6 +819,7 @@ img {
     .table-scroll {
         padding: 0;
     }
+    /* footer */
     .footer {
         padding: calc(40 * var(--u)) calc(50 * var(--u));
     }
@@ -829,6 +830,7 @@ img {
     .footer-copy {
         white-space: nowrap;
     }
+    /* // footer */
 }
 @media screen and (max-width: 768px), screen and (orientation: portrait) {
     .header > .contents-wrap {
@@ -838,6 +840,7 @@ img {
     .layerPop-contents {
         padding: 36px 20px;
     }
+    /* card */
     .cards {
         grid-template-columns: 1fr;
     }
@@ -866,4 +869,5 @@ img {
     .card-danger {
         font-size: var(--font-primary);
     }
+    /* //card */
 }
