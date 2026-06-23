@@ -95,7 +95,7 @@ section > .contents-wrap {
     padding-left: calc(40 * var(--hu));
     /* 노트북을 하단으로 내려 밑면이 책상 표면에 닿도록 정렬 */
     align-self: flex-end;
-    margin-bottom: 6vh;
+    margin-bottom: 10vh;
 }
 .visual-image img {
     display: block;
