@@ -33,12 +33,11 @@ section > .contents-wrap {
        화면 폭에 비례해 배치 → 넓은 화면에서도 글씨는 좌측, 노트북은 우측으로 퍼짐 */
     max-width: 85vw;
     margin: 0 auto 0 calc(200 * var(--hu));
+    padding-top: calc(260 * var(--hu));
 }
 
 .visual-contents {
-    flex: 1;
     align-self: flex-start;
-    padding-top: calc(260 * var(--hu));
 }
 .visual-subtit {
     font-size: calc(24 * var(--hu));
@@ -871,10 +870,11 @@ section > .contents-wrap {
         padding: 0 calc(10 * var(--u));
     }
     .road-step .road-stage {
+        font-size: var(--font-small);
         text-align: center;
     }
     .road-step h3 {
-        font-size: calc(22 * var(--u));
+        font-size: var(--font-medium);
         text-align: center;
     }
     .road-col .check-list li {
