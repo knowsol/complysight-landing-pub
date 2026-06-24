@@ -1000,6 +1000,7 @@ section > .contents-wrap {
     }
     .check-list li {
         height: 24px;
+        font-size: var(--font-small);
     }
     .check-list li::before {
         top: calc(6 * var(--u));
