@@ -86,6 +86,8 @@ $(function () {
         });
         // 햄버거 아이콘을 다시 ≡ 모양으로(부드럽게 X→≡ 전환)
         $(".btn-hamburger").removeClass("active").attr("aria-expanded", "false");
+        // 메뉴 닫힘 → 헤더 transform 잠금 해제
+        $header.removeClass("nav-open");
     };
 
     const bindHamburger = () => {
@@ -117,6 +119,8 @@ $(function () {
                 // 햄버거 → X 부드럽게 전환(.active 모핑 트리거)
                 this.classList.add("active");
                 this.setAttribute("aria-expanded", "true");
+                // 메뉴 열림 → 헤더 transform 제거(fixed menuPop가 뷰포트 전체를 덮도록)
+                $header.addClass("nav-open");
             });
         }
     };
@@ -440,12 +444,9 @@ $(function () {
 });
 
 /* =========================================================
-   모바일 햄버거 메뉴 토글 (씬 네비게이션과 독립)
+   모바일 메뉴 패널 로고 복제 (햄버거 토글은 위 bindHamburger가 담당)
    ========================================================= */
 $(function () {
-    var $header = $("#header");
-    var $toggle = $(".btn-hamburger");
-
     // 헤더 로고를 모바일 메뉴 패널에도 재사용(복제) — path를 중복 작성하지 않고
     // 헤더의 동일 로고를 그대로 가져온다. 흰 배경이라 .on-dark 불필요(기본 색이 어두움).
     var $panelLogo = $(".menuPop .logos .logo");
@@ -453,24 +454,4 @@ $(function () {
     if ($panelLogo.length && headerLogoSvg && !$panelLogo.children("svg").length) {
         $panelLogo.append(headerLogoSvg.cloneNode(true));
     }
-
-    function setOpen(open) {
-        $header.toggleClass("nav-open", open);
-        $toggle.attr("aria-expanded", open ? "true" : "false");
-    }
-
-    $toggle.on("click", function (e) {
-        e.stopPropagation();
-        setOpen(!$header.hasClass("nav-open"));
-    });
-
-    // 메뉴 항목 클릭 시 닫기
-    $(".mobile-nav a").on("click", function () {
-        setOpen(false);
-    });
-
-    // 바깥 영역 클릭 시 닫기
-    $(document).on("click", function (e) {
-        if (!$(e.target).closest(".header").length) setOpen(false);
-    });
 });

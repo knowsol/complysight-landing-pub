@@ -838,7 +838,7 @@ section > .contents-wrap {
 
     /* section6 */
     .product-tag {
-        font-size: calc(var(--font-primary) * var(--u));
+        font-size: calc(18 * var(--u));
     }
 
     .product-col h3 {
