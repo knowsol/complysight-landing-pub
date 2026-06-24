@@ -848,6 +848,16 @@ section > .contents-wrap {
     .product-shot {
         height: calc(236 * var(--u));
     }
+    .check-list li {
+        height: 24px;
+        font-size: var(--font-small);
+        padding-left: calc(24 * var(--u));
+    }
+    .check-list li::before {
+        top: calc(7 * var(--u));
+        width: calc(12 * var(--u));
+        height: calc(10 * var(--u));
+    }
     /* //section6 */
 
     /* section7 */
@@ -870,6 +880,7 @@ section > .contents-wrap {
     .road-col .check-list li {
         font-size: var(--font-small);
     }
+
     /* // section8 */
 
     /* cta-box */
@@ -998,13 +1009,7 @@ section > .contents-wrap {
         margin-bottom: calc(20 * var(--u));
         margin-top: calc(5 * var(--u));
     }
-    .check-list li {
-        height: 24px;
-        font-size: var(--font-small);
-    }
-    .check-list li::before {
-        top: calc(6 * var(--u));
-    }
+
     /* //section8*/
 }
 
