@@ -1061,31 +1061,55 @@ section > .contents-wrap {
 /* [애니메이션] 모션 허용 사용자에게만 적용 (접근성) */
 @media (prefers-reduced-motion: no-preference) {
     /* ---- 1) 강조점: 위에서 톡 떨어지듯 순서대로 등장 ---- */
+    /* 기본(뷰 진입 전): 점은 위쪽에 숨어 있음 */
     .auto-emph i::before {
         opacity: 0;
         transform: translate(-50%, calc(-7 * var(--u)));
-        transition:
-            opacity 0.4s ease,
-            transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        transition-delay: var(--dot-delay, 0s);
     }
     /* 트리거: '자동 관리'(.after)가 실제로 화면에 들어올 때 발동
-       (스크롤/씬 이동으로 도달하면 그 순간 재생) */
+       (스크롤/씬 이동으로 도달하면 그 순간 재생)
+       → 위에서 톡 떨어져 제자리에 머물다, 안 보이게 위로 되돌아가 다시 떨어지는
+         동작을 무한 반복. 글자마다 지연(--dot-delay)을 줘 물결치듯 순차로 떨어진다. */
     .after.is-in .auto-emph i::before {
-        opacity: 1;
-        transform: translate(-50%, 0);
+        animation: dotDrop 2.6s ease-in-out var(--dot-delay, 0s) infinite;
     }
     .auto-emph i:nth-of-type(1)::before {
-        --dot-delay: 0.6s;
+        --dot-delay: 0s;
     }
     .auto-emph i:nth-of-type(2)::before {
-        --dot-delay: 0.7s;
+        --dot-delay: 0.12s;
     }
     .auto-emph i:nth-of-type(3)::before {
-        --dot-delay: 0.8s;
+        --dot-delay: 0.24s;
     }
     .auto-emph i:nth-of-type(4)::before {
-        --dot-delay: 0.9s;
+        --dot-delay: 0.36s;
+    }
+    /* 위(−7u·투명)에서 떨어져(바운스) 제자리(0·불투명)에 안착 → 잠시 머묾 →
+       제자리에서 사라진 뒤 → 안 보이게 위로 복귀. 떨어지는 모습만 보이도록 구성. */
+    @keyframes dotDrop {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, calc(-7 * var(--u)));
+            /* 낙하 구간(0→18%)만 바운스 이징으로 '톡' 안착 */
+            animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        18% {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        70% {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        85% {
+            opacity: 0;
+            transform: translate(-50%, 0);
+        }
+        100% {
+            opacity: 0;
+            transform: translate(-50%, calc(-7 * var(--u)));
+        }
     }
 
     /* ---- 2) 화살표: 화살표가 화면에 들어올 때 위→아래로 파란색이 흐른다 ---- */
